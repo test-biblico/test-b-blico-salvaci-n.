@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Bíblico de Salvación</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .section {
+            display: none;
+            margin-bottom: 30px;
+        }
+        #nameSection {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        #userName {
+            padding: 12px;
+            width: 80%;
+            max-width: 300px;
+            margin: 15px;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #111;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+        .options label {
+            display: block;
+            margin: 12px 0;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options label:hover {
+            background-color: #222;
+        }
+        .options input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        .big-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: #4CAF50;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 25px 0;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .big-button:hover {
+            background-color: #3e8e41;
+        }
+        .result {
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .correct {
+            color: #4CAF50;
+            background-color: #002200;
+            border: 2px solid #4CAF50;
+        }
+        .incorrect {
+            color: #ff4d4d;
+            background-color: #330000;
+            border: 2px solid #ff4d4d;
+        }
+        .answers-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #111;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .complete-answer {
+            background-color: #1a1a1a;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid #4CAF50;
+        }
+        .verse-title, .explanation-title {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        .bible-verse {
+            font-style: italic;
+            color: #ccc;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+        .explanation {
+            margin: 10px 0;
+            color: #ddd;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+        .answer-header {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .section-title {
+            text-align: center;
+            color: #4CAF50;
+            margin: 30px 0;
+            padding: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .question-number {
+            background-color: #4CAF50;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .user-answer {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        .correct-answer {
+            background-color: #002200 !important;
+            border-color: #4CAF50 !important;
+            color: #4CAF50 !important;
+        }
+        .incorrect-answer {
+            background-color: #330000 !important;
+            border-color: #ff4d4d !important;
+            color: #ff4d4d !important;
+        }
+        .user-correct {
+            border: 2px solid #4CAF50 !important;
+            font-weight: bold !important;
+        }
+        .user-incorrect {
+            border: 2px solid #ff4d4d !important;
+            font-weight: bold !important;
+        }
+        .options input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .urgent-message {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #111;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #ff4d4d;
+        }
+        .urgent-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .warning-text {
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .bible-verse-intro {
+            font-style: italic;
+            color: #4CAF50;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .start-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 30px auto;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .start-button:hover {
+            background-color: #ff3333;
+        }
+        .urgent-warning {
+            color: #ff4d4d;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .final-message {
+            text-align: center;
+            padding: 30px;
+            background-color: #111;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #4CAF50;
+        }
+        .final-title {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .final-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .final-verse {
+            font-style: italic;
+            color: #4CAF50;
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #333;
+        }
+        .strong-warning {
+            color: #ff4d4d;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 22px;
+            margin: 20px 0;
+        }
+        .salvation-call {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #4CAF50;
+        }
+        .salvation-title {
+            color: #4CAF50;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        /* Estilos para la nueva sección de recursos */
+        #resourcesSection {
+            padding: 20px;
+        }
+        .resources-title {
+            text-align: center;
+            color: #4CAF50;
+            margin: 30px 0;
+            padding: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .resource-container {
+            margin-bottom: 40px;
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .resource-title {
+            color: #4CAF50;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* Relación de aspecto 16:9 */
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #000;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+        .resource-description {
+            color: #ddd;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 5px;
+            background-image: url('https://i.ytimg.com/vi/LPFSqmAtWQ0/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-BYACsAOKAgwIABABGEwgZShRMA8=&rs=AOn4CLAwdbvLIy-Kmq4wpO8uJFVQRP_MZQ');
+            background-size: cover;
+            background-position: center;
+        }
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        .video-placeholder p {
+            position: relative;
+            z-index: 2;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        .video-link {
+            display: inline-block;
+            text-align: center;
+            margin-top: 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #ff4d4d;
+            padding: 12px 24px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+        .video-link:hover {
+            background-color: #ff3333;
+            text-decoration: none;
+        }
+        .play-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Estilos para la nueva sección "EN QUE TIEMPOS ESTAMOS" */
+        #timesSection {
+            padding: 20px;
+        }
+        .times-title {
+            text-align: center;
+            color: #4CAF50;
+            margin: 30px 0;
+            padding: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .times-subtitle {
+            color: #4CAF50;
+            font-size: 20px;
+            margin: 25px 0 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+        .times-content {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        .times-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .times-list li {
+            margin-bottom: 10px;
+        }
+        .times-conclusion {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #4CAF50;
+        }
+        .times-conclusion-title {
+            color: #4CAF50;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* Estilos para la nueva sección "Creencias Católicas vs La Biblia" */
+        #catholicSection {
+            padding: 20px;
+        }
+        .catholic-title {
+            text-align: center;
+            color: #4CAF50;
+            margin: 30px 0;
+            padding: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .catholic-content {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        .catholic-point {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .catholic-point:last-child {
+            border-bottom: none;
+        }
+        .catholic-point-title {
+            color: #ff4d4d;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #444;
+        }
+        .catholic-explanation {
+            margin: 10px 0;
+            color: #ddd;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+        .catholic-verse {
+            font-style: italic;
+            color: #4CAF50;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 5px;
+            border-left: 3px solid #4CAF50;
+        }
+        .catholic-conclusion {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #4CAF50;
+        }
+        .catholic-conclusion-title {
+            color: #4CAF50;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcomeSection">
+        <h1>Test Bíblico de Salvación</h1>
+        
+        <div class="urgent-message">
+            <p class="warning-text">Hola, no vengo de ninguna Religión.</p>
+            <p class="warning-text"><span class="urgent-warning">ES URGENTE, SI MUERES HOY SIN SABER ESTO, TU ALMA SERÁ CONDENADA ETERNAMENTE AL INFIERNO.</span></p>
+            <p class="urgent-title">¿CÓMO SABER SI ERES SALVO?</p>
+            <p class="bible-verse-intro">"Examinaos a vosotros mismos si estáis en la fe" (2 Corintios 13:5).</p>
+        </div>
+        
+        <button class="start-button" onclick="showNameSection()">INICIAR TEST</button>
+    </div>
+
+    <div id="nameSection" class="section">
+        <h2>Test Bíblico de Salvación</h2>
+        <div id="nameForm">
+            <label for="userName">Ingresa tu nombre:</label><br>
+            <input type="text" id="userName" placeholder="Tu nombre"><br>
+            <button class="big-button" onclick="startTest()">Comenzar Test</button>
+        </div>
+    </div>
+
+    <div id="section1" class="section">
+        <h2>Parte 1: Salvación</h2>
+        
+        <div class="question" id="q1">
+            <p class="question-text"><span class="question-number">1</span> ¿Tiene posibilidad de salvarse una persona después de morir?</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="a"> a) Sí, a través de misas y oraciones por los difuntos</label>
+                <label><input type="radio" name="q1" value="b"> b) No, la salvación solo es posible en vida</label>
+                <label><input type="radio" name="q1" value="c"> c) Sí, si sus familiares realizan obras de caridad en su nombre</label>
+            </div>
+        </div>
+
+        <div class="question" id="q2">
+            <p class="question-text"><span class="question-number">2</span> ¿Si uno muere hoy, de qué depende para ir al cielo o al infierno?</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="a"> a) De las buenas obras que haya hecho</label>
+                <label><input type="radio" name="q2" value="b"> b) De haber aceptado o rechazado a Jesucristo como Salvador</label>
+                <label><input type="radio" name="q2" value="c"> c) Del juicio divino basado en una balanza de obras buenas vs malas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q3">
+            <p class="question-text"><span class="question-number">3</span> ¿Cuántos pecados necesitas cometer para ser condenado?</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="a"> a) Muchos pecados graves</label>
+                <label><input type="radio" name="q3" value="b"> b) Solo los pecados mortales</label>
+                <label><input type="radio" name="q3" value="c"> c) Solo un pecado</label>
+            </div>
+        </div>
+
+        <div class="question" id="q4">
+            <p class="question-text"><span class="question-number">4</span> ¿Cuál es la condena por pecar ante Dios?</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="a"> a) Muerte espiritual y separación eterna de Dios</label>
+                <label><input type="radio" name="q4" value="b"> b) Un tiempo limitado de purificación en el purgatorio</label>
+                <label><input type="radio" name="q4" value="c"> c) Sufrimiento temporal hasta expiar las culpas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q5">
+            <p class="question-text"><span class="question-number">5</span> ¿Cuántas veces se es condenado por el mismo pecado?</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="a"> a) Una vez por cada vez que se comete</label>
+                <label><input type="radio" name="q5" value="b"> b) Ninguna, si se ha sido perdonado por Dios en Cristo</label>
+                <label><input type="radio" name="q5" value="c"> c) Hasta que se compense con buenas obras</label>
+            </div>
+        </div>
+
+        <div class="question" id="q6">
+            <p class="question-text"><span class="question-number">6</span> ¿Puedes salvarte de ir al infierno?</p>
+            <div class="options">
+                <label><input type="radio" name="q6" value="a"> a) No, el destino está predeterminado</label>
+                <label><input type="radio" name="q6" value="b"> b) Sí, a través del esfuerzo personal y superación espiritual</label>
+                <label><input type="radio" name="q6" value="c"> c) Sí, arrepintiéndose y creyendo en Jesucristo como Salvador</label>
+            </div>
+        </div>
+
+        <div class="question" id="q7">
+            <p class="question-text"><span class="question-number">7</span> ¿Cuáles eran los requisitos para ser salvo según el antiguo pacto?</p>
+            <div class="options">
+                <label><input type="radio" name="q7" value="a"> a) Fe en la promesa del Mesías y obediencia al sistema de sacrificios</label>
+                <label><input type="radio" name="q7" value="b"> b) Cumplir perfectamente todos los mandamientos</label>
+                <label><input type="radio" name="q7" value="c"> c) Realizar peregrinaciones a Jerusalén y ofrendas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q8">
+            <p class="question-text"><span class="question-number">8</span> ¿Cuáles son los requisitos para ser salvo según el nuevo pacto?</p>
+            <div class="options">
+                <label><input type="radio" name="q8" value="a"> a) Arrepentimiento para con Dios y fe en Jesucristo</label>
+                <label><input type="radio" name="q8" value="b"> b) Bautismo y diezmo en una iglesia</label>
+                <label><input type="radio" name="q8" value="c"> c) Cumplir los sacramentos y tradiciones eclesiásticas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q9">
+            <p class="question-text"><span class="question-number">9</span> ¿Qué es el arrepentimiento que exige Jesús?</p>
+            <div class="options">
+                <label><input type="radio" name="q9" value="a"> a) Un cambio de mentalidad y de dirección hacia Dios</label>
+                <label><input type="radio" name="q9" value="b"> b) La perfección absoluta sin pecado</label>
+                <label><input type="radio" name="q9" value="c"> c) Aislarse del mundo en un monasterio</label>
+            </div>
+        </div>
+
+        <div class="question" id="q10">
+            <p class="question-text"><span class="question-number">10</span> ¿Qué es la Fe?</p>
+            <div class="options">
+                <label><input type="radio" name="q10" value="a"> a) Creer en algo sin evidencia</label>
+                <label><input type="radio" name="q10" value="b"> b) Certeza y convicción de lo que Dios ha prometido</label>
+                <label><input type="radio" name="q10" value="c"> c) Una fuerza positiva que atrae cosas buenas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q11">
+            <p class="question-text"><span class="question-number">11</span> ¿Cómo se adquiere la Fe?</p>
+            <div class="options">
+                <label><input type="radio" name="q11" value="a"> a) Es un don de Dios que se genera al escuchar Su Palabra</label>
+                <label><input type="radio" name="q11" value="b"> b) A través de la educación religiosa y formación doctrinal</label>
+                <label><input type="radio" name="q11" value="c"> c) Por herencia familiar o genética</label>
+            </div>
+        </div>
+
+        <div class="question" id="q12">
+            <p class="question-text"><span class="question-number">12</span> ¿La salvación se pierde?</p>
+            <div class="options">
+                <label><input type="radio" name="q12" value="a"> a) Sí, si se comete un pecado mortal</label>
+                <label><input type="radio" name="q12" value="b"> b) No, la salvación es segura y eterna para quien verdaderamente ha creído</label>
+                <label><input type="radio" name="q12" value="c"> c) Depende de mantener una vida sin pecado</label>
+            </div>
+        </div>
+
+        <div class="question" id="q13">
+            <p class="question-text"><span class="question-number">13</span> ¿Puede una persona ser salva después de morir si le rezan un novenario o pidiendo intercesión a las vírgenes?</p>
+            <div class="options">
+                <label><input type="radio" name="q13" value="a"> a) Sí, la intercesión de los santos puede ayudar</label>
+                <label><input type="radio" name="q13" value="b"> b) No, la salvación solo es posible en vida</label>
+                <label><input type="radio" name="q13" value="c"> c) Solo si se hacen suficientes oraciones</label>
+            </div>
+        </div>
+
+        <button class="big-button" onclick="evaluateSection1()">Evaluar Sección 1</button>
+
+        <div id="result1" class="result"></div>
+
+        <button class="big-button" onclick="showCompleteAnswers1()" id="viewAnswersBtn1" style="display:none;">Ver Respuestas Completas</button>
+
+        <div id="completeAnswers1" class="answers-container">
+            <h3>Respuestas Completas - Parte 1: Salvación</h3>
+            
+            <div class="complete-answer">
+                <p class="answer-header">1. ¿Tiene posibilidad de salvarse una persona después de morir?</p>
+                <p><strong>Respuesta:</strong> No.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y de la manera que está establecido para los hombres que mueran una sola vez, y después de esto el juicio." (Hebreos 9:27)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La Biblia es clara en que la muerte física es el fin de la oportunidad para aceptar la salvación. Después de morir, cada persona enfrenta el juicio de Dios, y no hay una segunda oportunidad. La decisión se toma en vida.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">2. ¿Si uno muere hoy, de qué depende para ir al cielo o al infierno?</p>
+                <p><strong>Respuesta:</strong> Depende exclusivamente de si ha aceptado a Jesucristo como su Salvador personal o lo ha rechazado.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"El que cree en el Hijo tiene vida eterna; pero el que rehúsa creer en el Hijo no verá la vida, sino que la ira de Dios está sobre él." (Juan 3:36)</p>
+                <p class="bible-verse">"Y en ningún otro hay salvación; porque no hay otro nombre bajo el cielo, dado a los hombres, en que podamos ser salvos." (Hechos 4:12)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La Biblia enseña que el cielo se alcanza por gracia mediante la fe en Jesús, quien pagó el precio de nuestros pecados. Ir al infierno es la consecuencia eterna de rechazar ese regalo y permanecer en nuestros pecados.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">3. ¿Cuántos pecados necesitas cometer para ser condenado?</p>
+                <p><strong>Respuesta:</strong> Solo uno.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque cualquiera que guardare toda la ley, pero ofendiere en un punto, se hace culpable de todos." (Santiago 2:10)</p>
+                <p class="bible-verse">"por cuanto todos pecaron, y están destituidos de la gloria de Dios." (Romanos 3:23)</p>
+                <p class="bible-verse">"Porque todos los que dependen de las obras de la ley están bajo maldición, pues escrito está: Maldito todo aquel que no permaneciere en todas las cosas escritas en el libro de la ley, para hacerlas." (Gálatas 3:10)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Dios es santo y perfecto. Violar solo uno de sus mandamientos (por ejemplo, mentir) quebranta toda su ley y nos hace merecedores de condenación. No se trata de la cantidad, sino de ofender la santidad infinita de Dios.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">4. ¿Cuál es la condena por pecar ante Dios?</p>
+                <p><strong>Respuesta:</strong> Muerte espiritual y separación eterna de Dios en el lago de fuego (infierno).</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque la paga del pecado es muerte, mas la dádiva de Dios es vida eterna en Cristo Jesús Señor nuestro." (Romanos 6:23)</p>
+                <p class="bible-verse">"Y el que no se halló inscrito en el libro de la vida fue lanzado al lago de fuego." (Apocalipsis 20:15)</p>
+                <p class="bible-verse">"Pero los cobardes e incrédulos, los abominables y homicidas, los fornicarios y hechiceros, los idólatras y todos los mentirosos tendrán su parte en el lago que arde con fuego y azufre, que es la muerte segunda." (Apocalipsis 21:8)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">El pecado tiene un costo terrible. La "muerte" de la que habla Romanos 6:23 no es solo física, sino principalmente espiritual y eterna: la separación de Dios para siempre en un lugar de castigo.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">5. ¿Cuántas veces se es condenado por el mismo pecado?</p>
+                <p><strong>Respuesta:</strong> Ninguna, si se ha sido perdonado por Dios en Cristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y nunca más me acordaré de sus pecados y de sus iniquidades. Pues donde hay remisión de estos, no hay más ofrenda por el pecado." (Hebreos 10:17-18)</p>
+                <p class="bible-verse">"Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu." (Romanos 8:1)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Para el creyente, cuando Dios perdona, lo hace completamente. Él echa nuestros pecados a lo más profundo del mar y no los recuerda más. En el juicio, un cristiano no será condenado por sus pecados porque la pena ya fue pagada por Jesús en la cruz.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">6. ¿Puedes salvarte de ir al infierno?</p>
+                <p><strong>Respuesta:</strong> Sí, pero no por tus propias obras, sino por aceptar el regalo de salvación que Dios ofrece.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios; no por obras, para que nadie se gloríe." (Efesios 2:8-9)</p>
+                <p class="bible-verse">"Mas a todos los que le recibieron, a los que creen en su nombre, les dio potestad de ser hechos hijos de Dios." (Juan 1:12)</p>
+                <p class="bible-verse">"Ellos dijeron: Cree en el Señor Jesucristo, y serás salvo, tú y tu casa." (Hechos 16:31)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La salvación es un regalo gratuito de Dios que no podemos ganar. Se recibe por: A) Arrepentirse (volverse del pecado y hacia Dios). B) Creer y confiar con fe que Jesucristo murió en tu lugar, pagando por tus pecados, y que resucitó. C) Recibirle y confesarle como Señor y Salvador personal.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">7. ¿Cuáles eran los requisitos para ser salvo según el antiguo pacto?</p>
+                <p><strong>Respuesta:</strong> Fe en la promesa del Mesías venidero, demostrada mediante la obediencia a la ley y el sistema de sacrificios que Dios estableció como sombra de lo que Cristo cumpliría.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque la vida de la carne en la sangre está, y yo os la he dado para hacer expiación sobre el altar por vuestras almas; y la misma sangre hará expiación de la persona." (Levítico 17:11)</p>
+                <p class="bible-verse">"Y casi todo es purificado, según la ley, con sangre; y sin derramamiento de sangre no se hace remisión." (Hebreos 9:22)</p>
+                <p class="bible-verse">"Porque la ley, teniendo la sombra de los bienes venideros, no la imagen misma de las cosas, nunca puede, por los mismos sacrificios que se ofrecen continuamente cada año, hacer perfectos a los que se acercan. De otra manera cesarían de ofrecerse, porque los que tributan este culto, limpios una vez, no tendrían ya más conciencia de pecado. Pero en estos sacrificios cada año se hace memoria de los pecados; porque la sangre de los toros y de los machos cabríos no puede quitar los pecados." (Hebreos 10:1-4)</p>
+                <p class="bible-verse">"Y creyó a Jehová, y le fue contado por justicia." (Génesis 15:6)</p>
+                <p class="bible-verse">"He aquí que aquel cuya alma no es recta, se enorgullece; mas el justo por su fe vivirá." (Habacuc 2:4)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">En el Antiguo Testamento, la salvación siempre fue por fe. Los sacrificios de animales no quitaban los pecados permanentemente, sino que eran un recordatorio de la deuda y una prefiguración del sacrificio perfecto de Cristo. La persona debía tener fe en que Dios proveería el cordero que quita el pecado (Génesis 22:8, Juan 8:56).</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">8. ¿Cuáles son los requisitos para ser salvo según el nuevo pacto?</p>
+                <p><strong>Respuesta:</strong> Arrepentimiento para con Dios y fe en nuestro Señor Jesucristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"testificando a judíos y a gentiles acerca del arrepentimiento para con Dios, y de la fe en nuestro Señor Jesucristo." (Hechos 20:21)</p>
+                <p class="bible-verse">"que si confesares con tu boca que Jesús es el Señor, y creyeres en tu corazón que Dios le levantó de los muertos, serás salvo. Porque con el corazón se cree para justicia, pero con la boca se confiesa para salvación." (Romanos 10:9-10)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Con la venida de Jesús y su obra consumada en la cruz, el requisito es poner toda nuestra fe y confianza en Él. Reconocer que somos pecadores, arrepentirnos de esa condición y creer que Jesús es el Hijo de Dios que murió y resucitó por nosotros.</p>
+            </div>
+            
+            <div class="complete-answer">
+                  <p class="answer-header">9. ¿Qué es el arrepentimiento que exige Jesús?</p>
+                <p><strong>Respuesta:</strong> El arrepentimiento que Jesús exige no es dejar de pecar, porque el ser humano nunca podrá lograrlo en este cuerpo de carne. El arrepentimiento verdadero es un cambio de mentalidad (metanoia en griego), que consiste en reconocerse tal como uno es delante de Dios:
+<p><strong>1-</strong>Moralmente corrupto : Soy pecador y no puedo dejar de pecar.
+<p><strong>2-</strong>Espiritualmente muerto : Estoy muerto en mis pecados.
+<p><strong>3-</strong>Judicialmente condenado : Mi alma está condenada al infierno.
+<p>Cuando una persona reconoce estas verdades, entonces ve su necesidad de ser salvada por Cristo y cree con fe que Él ya hizo todo en la cruz..</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">1. Moralmente corrupto:"Por cuanto todos pecaron, y están destituidos de la gloria de Dios." (Romanos 3:23)</p>
+                <p class="bible-verse">2. Espiritualmente muerto:"Y él os dio vida a vosotros, cuando estabais muertos en vuestros delitos y pecados." (Efesios 2:1)</p>
+                <p class="bible-verse">3. Judicialmente condenado:"El que en él cree, no es condenado; pero el que no cree, ya ha sido condenado, porque no ha creído en el nombre del unigénito Hijo de Dios." (Juan 3:18)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">El arrepentimiento que Jesús pide es reconocer nuestra verdadera condición.</p>
+<p class="explanation">No es tratar de "ser mejor persona" o "hacer más obras buenas", porque eso nunca podrá salvarnos.</p>
+<p class="explanation">Es entender que delante de Dios somos corruptos moralmente, es decir, por naturaleza siempre vamos a pecar. Aunque intentemos ser justos, siempre fallamos.</p>
+<p class="explanation">También debemos reconocer que estamos espiritualmente muertos: sin Cristo, no hay vida en nosotros, aunque estemos vivos físicamente. El pecado nos separa totalmente de Dios.</p>
+<p class="explanation">Finalmente, debemos aceptar que estamos judicialmente condenados: como en un tribunal, ya hemos sido hallados culpables y nuestra sentencia eterna es el infierno.</p>
+<p class="explanation">👉 Al aceptar esto, comprendemos que no podemos salvarnos solos. Y es ahí cuando miramos a Cristo y creemos con fe que Él ya nos salvó en la cruz.</p>
+<p class="explanation">📌 Ese es el arrepentimiento verdadero: no es dejar de pecar, sino cambiar la manera de pensar sobre nosotros mismos y sobre Dios, reconociendo nuestra ruina y abrazando por fe la obra completa de Jesús.</p>
+<p class="explanation">Además, este arrepentimiento no da licencia para pecar libremente. El pecado dependiendo de la gravedad sigue teniendo consecuencias graves en esta vida (enfermedades, pobreza, ruina, muerte prematura), pero ya no condena nuestra alma al infierno, porque Jesús nos salvó para siempre..</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">10. ¿Qué es la Fe?</p>
+                <p><strong>Respuesta:</strong> Es la certeza y convicción absoluta de que lo que Dios ha prometido en su Palabra es verdad, especialmente respecto a la salvación por medio de Jesucristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve." (Hebreos 11:1)</p>
+                <p class="bible-verse">"(porque por fe andamos, no por vista);" (2 Corintios 5:7)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La fe no es un simple sentimiento o esperanza. Es una confianza firme y segura, como estar convencido de que una silla te sostendrá antes de sentarte. Es creer en las realidades espirituales que no podemos ver con ojos físicos pero que Dios ha revelado.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">11. ¿Cómo se adquiere la Fe?</p>
+                <p><strong>Respuesta:</strong> La fe es un don de Dios que se genera en nosotros al escuchar (o leer) la Palabra de Dios.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Así que la fe es por el oír, y el oír, por la palabra de Dios." (Romanos 10:17)</p>
+                <p class="bible-verse">"Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios; no por obras, para que nadie se gloríe." (Efesios 2:8-9)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Dios es quien da la capacidad de creer. Él usa su Palabra (la Biblia) como el medio principal para producir fe en el corazón de las personas. Cuando alguien oye el mensaje del Evangelio, el Espíritu Santo obra para que ese mensaje sea recibido con fe.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">12. ¿La salvación se pierde?</p>
+                <p><strong>Respuesta:</strong> No, la salvación es segura y eterna para quien verdaderamente ha creído.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"y yo les doy vida eterna; y no perecerán jamás, ni nadie las arrebatará de mi mano. Mi Padre que me las dio, es mayor que todos, y nadie las puede arrebatar de la mano de mi Padre." (Juan 10:28-29)</p>
+                <p class="bible-verse">"En él también vosotros, habiendo oído la palabra de verdad, el evangelio de vuestra salvación, y habiendo creído en él, fuisteis sellados con el Espíritu Santo de la promesa, que es las arras de nuestra herencia hasta la redención de la posesión adquirida, para alabanza de su gloria." (Efesios 1:13-14)</p>
+                <p class="bible-verse">"Bendito el Dios y Padre de nuestro Señor Jesucristo, que según su grande misericordia nos hizo renacer para una esperanza viva, por la resurrección de Jesucristo de los muertos, para una herencia incorruptible, incontaminada e inmarcesible, reservada en los cielos para vosotros, que sois guardados por el poder de Dios mediante la fe, para alcanzar la salvación que está preparada para ser manifestada en el tiempo postrero." (1 Pedro 1:3-5)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La salvación es una obra de Dios, no nuestra. Él nos guarda por su poder. Quien realmente ha nacido de nuevo y tiene al Espíritu Santo como garantía, es sellado para siempre. Las advertencias contra la apostasía en la Biblia se entienden como pruebas para discernir entre una fe genuina (que persevera) y una fe falsa o temporal (que abandona).</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">13. ¿Puede una persona ser salva después de morir si le rezan un novenario o pidiendo intercesión a las vírgenes?</p>
+                <p><strong>Respuesta:</strong> No.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y de la manera que está establecido para los hombres que mueran una sola vez, y después de esto el juicio." (Hebreos 9:27)</p>
+                <p class="bible-verse">"Porque hay un solo Dios, y un solo mediador entre Dios y los hombres, Jesucristo hombre." (1 Timoteo 2:5)</p>
+                <p class="bible-verse">"Jesús le dijo: Yo soy el camino, y la verdad, y la vida; nadie viene al Padre, sino por mí." (Juan 14:6)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Como se estableció en la primera pregunta, la muerte sella el destino. La Biblia no apoya la idea de oraciones por los muertos para cambiar su estado. Además, enseña que hay un solo mediador entre Dios y los hombres: Jesucristo. No se necesita ni se debe buscar la intercesión de vírgenes o santos fallecidos, pues Cristo es el único y suficiente abogado.</p>
+            </div>
+            
+        </div>
+
+        <button class="big-button" onclick="showSection2()" id="nextButton1" style="display:none;">Continuar a Sección 2</button>
+    </div>
+
+    <div id="section2" class="section">
+        <h2>Parte 2: Escatología (Rapto, Tribulación, Reino Milenial y Cielo Nuevo)</h2>
+        
+        <div class="section-title">Rapto o Arrebatamiento</div>
+        
+        <div class="question" id="q14">
+            <p class="question-text"><span class="question-number">1</span> ¿Qué es el Rapto o Arrebatamiento?</p>
+            <div class="options">
+                <label><input type="radio" name="q14" value="a"> a) La Segunda Venida de Cristo a la Tierra</label>
+                <label><input type="radio" name="q14" value="b"> b) Cuando Jesucristo regresa en el aire para llevar a los creyentes</label>
+                <label><input type="radio" name="q14" value="c"> c) La destrucción final del mundo</label>
+            </div>
+        </div>
+
+        <div class="question" id="q15">
+            <p class="question-text"><span class="question-number">2</span> ¿Quiénes son dignos del rapto?</p>
+            <div class="options">
+                <label><input type="radio" name="q15" value="a"> a) Todos los que han sido salvos por la fe en Jesucristo</label>
+                <label><input type="radio" name="q15" value="b"> b) Solo los que han alcanzado un alto nivel espiritual</label>
+                <label><input type="radio" name="q15" value="c"> c) Aquellos que han realizado muchas buenas obras</label>
+            </div>
+        </div>
+
+        <div class="question" id="q16">
+            <p class="question-text"><span class="question-number">3</span> ¿Qué sucederá con los raptados?</p>
+            <div class="options">
+                <label><input type="radio" name="q16" value="a"> a) Serán juzgados inmediatamente por sus pecados</label>
+                <label><input type="radio" name="q16" value="b"> b) Serán llevados al cielo para el Tribunal de Cristo y las Bodas del Cordero</label>
+                <label><input type="radio" name="q16" value="c"> c) Reinarán inmediatamente en la tierra</label>
+            </div>
+        </div>
+
+        <div class="question" id="q17">
+            <p class="question-text"><span class="question-number">4</span> ¿Qué sucede en la tierra inmediatamente después del rapto?</p>
+            <div class="options">
+                <label><input type="radio" name="q17" value="a"> a) Comienza el juicio final</label>
+                <label><input type="radio" name="q17" value="b"> b) Comienza un período de siete años de gran tribulación</label>
+                <label><input type="radio" name="q17" value="c"> c) El mundo experimenta paz y prosperidad</label>
+            </div>
+        </div>
+
+        <div class="question" id="q18">
+            <p class="question-text"><span class="question-number">5</span> ¿Cuáles son las señales bíblicas que indican que el rapto está cerca?</p>
+            <div class="options">
+                <label><input type="radio" name="q18" value="a"> a) Señales generales de los "tiempos finales"</label>
+                <label><input type="radio" name="q18" value="b"> b) La aparición del Anticristo</label>
+                <label><input type="radio" name="q18" value="c"> c) La reconstrucción del Templo de Jerusalén</label>
+            </div>
+        </div>
+
+        <div class="section-title">Tribulación</div>
+
+        <div class="question" id="q19">
+            <p class="question-text"><span class="question-number">6</span> ¿Qué es la Tribulación?</p>
+            <div class="options">
+                <label><input type="radio" name="q19" value="a"> a) Un tiempo de prueba para la Iglesia</label>
+                <label><input type="radio" name="q19" value="b"> b) Un período de siete años de juicio derramado por Dios sobre la tierra incrédula</label>
+                <label><input type="radio" name="q19" value="c"> c) El sufrimiento normal de la vida humana</label>
+            </div>
+        </div>
+
+        <div class="question" id="q20">
+            <p class="question-text"><span class="question-number">7</span> ¿Cuáles son las señales bíblicas que indican que la Tribulación está cerca?</p>
+            <div class="options">
+                <label><input type="radio" name="q20" value="a"> a) Las mismas que indican que el Rapto está cerca</label>
+                <label><input type="radio" name="q20" value="b"> b) La firma del pacto de paz entre el Anticristo e Israel</label>
+                <label><input type="radio" name="q20" value="c"> c) La aparición de los dos testigos</label>
+            </div>
+        </div>
+
+        <div class="question" id="q21">
+            <p class="question-text"><span class="question-number">8</span> ¿Qué y cuáles son los siete sellos?</p>
+            <div class="options">
+                <label><input type="radio" name="q21" value="a"> a) Los primeros juicios de la Tribulación contenidos en un rollo</label>
+                <label><input type="radio" name="q21" value="b"> b) Siete profecías sobre el fin del mundo</label>
+                <label><input type="radio" name="q21" value="c"> c) Siete ángeles que anuncian juicios</label>
+            </div>
+        </div>
+
+        <div class="question" id="q22">
+            <p class="question-text"><span class="question-number">9</span> ¿Qué y cuáles son las siete trompetas?</p>
+            <div class="options">
+                <label><input type="radio" name="q22" value="a"> a) Juicios más intensos que los sellos que ocurren durante la Tribulación</label>
+                <label><input type="radio" name="q22" value="b"> b) Anuncios de bendición para los creyentes</label>
+                <label><input type="radio" name="q22" value="c"> c) Siete llamados al arrepentimiento</label>
+            </div>
+        </div>
+
+        <div class="question" id="q23">
+            <p class="question-text"><span class="question-number">10</span> ¿Qué y cuáles son las siete copas?</p>
+            <div class="options">
+                <label><input type="radio" name="q23" value="a"> a) Los juicios finales y más severos derramados sobre los seguidores del Anticristo</label>
+                <label><input type="radio" name="q23" value="b"> b) Siete bendiciones para Israel</label>
+                <label><input type="radio" name="q23" value="c"> c) Siete sacramentos para la Iglesia</label>
+            </div>
+        </div>
+
+        <div class="question" id="q24">
+            <p class="question-text"><span class="question-number">11</span> ¿Qué sucede después de estas cosas?</p>
+            <div class="options">
+                <label><input type="radio" name="q24" value="a"> a) La Segunda Venida de Cristo en gloria</label>
+                <label><input type="radio" name="q24" value="b"> b) El inicio del Reino Milenial</label>
+                <label><input type="radio" name="q24" value="c"> c) a y b son correctas</label>
+            </div>
+        </div>
+
+        <div class="section-title">Reino Milenial</div>
+
+        <div class="question" id="q25">
+            <p class="question-text"><span class="question-number">12</span> ¿Qué es el Reino Milenial?</p>
+            <div class="options">
+                <label><input type="radio" name="q25" value="a"> a) Un reino espiritual en el corazón de los creyentes</label>
+                <label><input type="radio" name="q25" value="b"> b) El reinado de 1000 años de Jesucristo desde Jerusalén</label>
+                <label><input type="radio" name="q25" value="c"> c) La era de la Iglesia</label>
+            </div>
+        </div>
+
+        <div class="question" id="q26">
+            <p class="question-text"><span class="question-number">13</span> ¿Dónde será el Reino Milenial?</p>
+            <div class="options">
+                <label><input type="radio" name="q26" value="a"> a) En el cielo</label>
+                <label><input type="radio" name="q26" value="b"> b) En la tierra, con Jerusalén como capital central</label>
+                <label><input type="radio" name="q26" value="c"> c) En una dimensión espiritual</label>
+            </div>
+        </div>
+
+        <div class="question" id="q27">
+            <p class="question-text"><span class="question-number">14</span> ¿Cómo será el Reino Milenial?</p>
+            <div class="options">
+                <label><input type="radio" name="q27" value="a"> a) Un tiempo de paz, justicia, conocimiento de Dios y prosperidad</label>
+                <label><input type="radio" name="q27" value="b"> b) Igual al mundo actual pero con Jesús como rey</label>
+                <label><input type="radio" name="q27" value="c"> c) Un reino exclusivamente espiritual</label>
+            </div>
+        </div>
+
+        <div class="question" id="q28">
+            <p class="question-text"><span class="question-number">15</span> ¿Cómo será la vida cotidiana en el Reino Milenial?</p>
+            <div class="options">
+                <label><input type="radio" name="q28" value="a"> a) La vida continuará con trabajo, culto, familia y gobierno bajo la autoridad de Cristo</label>
+                <label><input type="radio" name="q28" value="b"> b) No habrá trabajo ni actividades cotidianas</label>
+                <label><input type="radio" name="q28" value="c"> c) Será igual que ahora pero sin maldad</label>
+            </div>
+        </div>
+
+        <div class="question" id="q29">
+            <p class="question-text"><span class="question-number">16</span> ¿Qué sucede al final del Reino Milenial?</p>
+            <div class="options">
+                <label><input type="radio" name="q29" value="a"> a) Satanás es soltado, engaña a las naciones y es derrotado</label>
+                <label><input type="radio" name="q29" value="b"> b) Cristo entrega el reino al Padre</label>
+                <label><input type="radio" name="q29" value="c"> c) a y b son correctas</label>
+            </div>
+        </div>
+
+        <div class="section-title">Nuevo Cielo y Nueva Tierra</div>
+
+        <div class="question" id="q30">
+            <p class="question-text"><span class="question-number">17</span> ¿Qué es el nuevo Cielo y nueva Tierra?</p>
+            <div class="options">
+                <label><input type="radio" name="q30" value="a"> a) Un estado espiritual de bienaventuranza</label>
+                <label><input type="radio" name="q30" value="b"> b) La creación eterna y perfecta de Dios, completamente renovada</label>
+                <label><input type="radio" name="q30" value="c"> c) Una metáfora de la vida después de la muerte</label>
+            </div>
+        </div>
+
+        <div class="question" id="q31">
+            <p class="question-text"><span class="question-number">18</span> ¿Dónde será el nuevo Cielo y nueva Tierra?</p>
+            <div class="options">
+                <label><input type="radio" name="q31" value="a"> a) Reemplazará al cielo y la tierra actuales</label>
+                <label><input type="radio" name="q31" value="b"> b) En una dimensión paralela</label>
+                <label><input type="radio" name="q31" value="c"> c) a y b son correctas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q32">
+            <p class="question-text"><span class="question-number">19</span> ¿Cómo será el nuevo Cielo y nueva Tierra?</p>
+            <div class="options">
+                <label><input type="radio" name="q32" value="a"> a) Un lugar de belleza, santidad y gloria indescriptibles</label>
+                <label><input type="radio" name="q32" value="b"> b) Similar a la tierra actual pero perfeccionada</label>
+                <label><input type="radio" name="q32" value="c"> c) a y b son correctas</label>
+            </div>
+        </div>
+
+        <div class="question" id="q33">
+            <p class="question-text"><span class="question-number">20</span> ¿Cómo será la vida cotidiana en el nuevo Cielo y nueva Tierra?</p>
+            <div class="options">
+                <label><input type="radio" name="q33" value="a"> a) Una vida de adoración perfecta, servicio gozoso y comunión con Dios</label>
+                <label><input type="radio" name="q33" value="b"> b) No habrá actividades cotidianas</label>
+                <label><input type="radio" name="q33" value="c"> c) a y b son correctas</label>
+            </div>
+        </div>
+
+        <button class="big-button" onclick="evaluateSection2()">Evaluar Sección 2</button>
+
+        <div id="result2" class="result"></div>
+
+        <button class="big-button" onclick="showCompleteAnswers2()" id="viewAnswersBtn2" style="display:none;">Ver Respuestas Completas</button>
+
+        <div id="completeAnswers2" class="answers-container">
+            <h3>Respuestas Completas - Parte 2: Escatología</h3>
+            
+            <div class="complete-answer">
+                <p class="answer-header">1. ¿Qué es el Rapto o Arrebatamiento?</p>
+                <p><strong>Respuesta:</strong> Es el evento futuro en el que Jesucristo regresará en el aire para llevar consigo a todos los creyentes verdaderos (vivos y muertos) para estar siempre con Él.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque el Señor mismo con voz de mando, con voz de arcángel, y con trompeta de Dios, descenderá del cielo; y los muertos en Cristo resucitarán primero. Luego nosotros los que vivimos, los que hayamos quedado, seremos arrebatados juntamente con ellos en las nubes para recibir al Señor en el aire, y así estaremos siempre con el Señor." (1 Tesalonicenses 4:16-17)</p>
+                <p class="bible-verse">"He aquí, os digo un misterio: No todos dormiremos; pero todos seremos transformados, en un momento, en un abrir y cerrar de ojos, a la final trompeta; porque se tocará la trompeta, y los muertos serán resucitados incorruptibles, y nosotros seremos transformados." (1 Corintios 15:51-52)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Será un evento instantáneo y secreto para el mundo. Los creyentes vivos serán transformados y arrebatados junto con los creyentes resucitados para encontrarse con el Señor en las nubes.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">2. ¿Quiénes son dignos del rapto?</p>
+                <p><strong>Respuesta:</strong> Todos los que han sido salvos por la fe en Jesucristo, es decir, la verdadera iglesia de Cristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"aguardando la esperanza bienaventurada y la manifestación gloriosa de nuestro gran Dios y Salvador Jesucristo." (Tito 2:13)</p>
+                <p class="bible-verse">"Y si me fuere y os preparare lugar, vendré otra vez, y os tomaré a mí mismo, para que donde yo estoy, vosotros también estéis." (Juan 14:3)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La "dignidad" no se gana por obras propias, sino que es el derecho que Cristo da a todos aquellos que le pertenecen, que han sido lavados por su sangre y nacidos de nuevo por el Espíritu.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">3. ¿Qué sucederá con los raptados?</p>
+                <p><strong>Respuesta:</strong> Serán llevados al cielo, se presentarán ante el Tribunal de Cristo para recibir recompensas y luego celebrarán las Bodas del Cordero.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque es necesario que todos nosotros comparezcamos ante el tribunal de Cristo, para que cada uno reciba según lo que haya hecho mientras estaba en el cuerpo, sea bueno o sea malo." (2 Corintios 5:10)</p>
+                <p class="bible-verse">"Gocémonos y alegrémonos y démosle gloria; porque han llegado las bodas del Cordero, y su esposa se ha preparado. Y a ella se le ha concedido que se vista de lino fino, limpio y resplandeciente; porque el lino fino es las acciones justas de los santos. Y el ángel me dijo: Escribe: Bienaventurados los que son llamados a la cena de las bodas del Cordero. Y me dijo: Estas son palabras verdaderas de Dios." (Apocalipsis 19:7-9)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">En el cielo, los creyentes no serán juzgados por sus pecados (ya perdonados), sino que sus obras y servicio para Cristo serán evaluados para recibir galardones. También se prepararán para regresar con Cristo a la tierra en su Segunda Venida.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">4. ¿Qué sucede en la tierra inmediatamente después del rapto?</p>
+                <p><strong>Respuesta:</strong> Comienza un período de siete años de gran tribulación, gobernado por el Anticristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Porque ya está en acción el misterio de la iniquidad; sólo que hay quien al presente lo detiene, hasta que él a su vez sea quitado de en medio. Y entonces se manifestará aquel inicuo, a quien el Señor matará con el espíritu de su boca, y destruirá con el resplandor de su venida; inicuo cuyo advenimiento es por obra de Satanás, con gran poder y señales y prodigios mentirosos, y con todo engaño de iniquidad para los que se pierden, por cuanto no recibieron el amor de la verdad para ser salvos. Por esto Dios les envía un poder engañoso, para que crean la mentira, a fin de que sean condenados todos los que no creyeron a la verdad, sino que se complacieron en la injusticia." (2 Tesalonicenses 2:7-12)</p>
+                <p class="bible-verse">"porque habrá entonces gran tribulación, cual no la ha habido desde el principio del mundo hasta ahora, ni la habrá." (Mateo 24:21)</p>
+                <p class="bible-verse">"Por cuanto has guardado la palabra de mi paciencia, yo también te guardaré de la hora de la prueba que ha de venir sobre el mundo entero, para probar a los que moran sobre la tierra." (Apocalipsis 3:10)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">El Rapto remueve a la Iglesia, que es lo que "detiene" la manifestación plena del mal. Una vez la Iglesia se va, se revelará el Anticristo y comenzará el juicio de Dios sobre la tierra incrédula.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">5. ¿Cuáles son las señales bíblicas que indican que el rapto está cerca?</p>
+                <p><strong>Respuesta:</strong> Señales generales de los "tiempos finales", ya que el Rapto es inminente (puede ocurrir en cualquier momento sin señales previas).</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Pero del día y la hora nadie sabe, ni aun los ángeles de los cielos, sino sólo mi Padre. Mas como en los días de Noé, así será la venida del Hijo del Hombre. Porque como en los días antes del diluvio estaban comiendo y bebiendo, casándose y dando en casamiento, hasta el día en que Noé entró en el arca, y no entendieron hasta que vino el diluvio y se los llevó a todos, así será también la venida del Hijo del Hombre. Entonces estarán dos en el campo; el uno será tomado, y el otro será dejado. Dos mujeres estarán moliendo en un molino; la una será tomado, y la otra será dejado. Velad, pues, porque no sabéis a qué hora ha de venir vuestro Señor." (Mateo 24:36-42)</p>
+                <p class="bible-verse">"Pero acerca de los tiempos y de las ocasiones, no tenéis necesidad, hermanos, de que yo os escriba. Porque vosotros sabéis perfectamente que el día del Señor vendrá así como ladrón en la noche; que cuando digan: Paz y seguridad, entonces vendrá sobre ellos destrucción repentina, como los dolores a la mujer encinta, y no escaparán. Mas vosotros, hermanos, no estáis en tinieblas, para que aquel día os sorprenda como ladrón." (1 Tesalonicenses 5:1-4)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">El Rapto no tiene una señal que lo anuncie directamente. Por eso, se le llama la "bendita esperanza". Las señales de los últimos tiempos (guerras, rumores de guerras, apostasía, etc.) nos indican que la era está cerca, pero el Rapto en sí puede ocurrir en cualquier momento, por lo que debemos vivir velando.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">6. ¿Qué es la Tribulación?</p>
+                <p><strong>Respuesta:</strong> Un período de siete años de juicio sin precedentes derramado por Dios sobre la tierra incrédula, y también un tiempo donde Israel será purificado.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y por otra semana confirmará el pacto con muchos; a la mitad de la semana hará cesar el sacrificio y la ofrenda. Después con la muchedumbre de las abominaciones vendrá el desolador, hasta que venga la consumación, y lo que está determinado se derrame sobre el desolador." (Daniel 9:27)</p>
+                <p class="bible-verse">"¡Ah, cuán grande es aquel día! tanto, que no hay otro semejante a él; tiempo de angustia para Jacob; pero de ella será librado." (Jeremías 30:7)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Es la 70ª semana de la profecía de Daniel. Es el tiempo de "la angustia de Jacob" donde Dios juzga al mundo rebelde y lleva a Israel a reconocer a Jesús como su Mesías.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">7. ¿Cuáles son las señales bíblicas que indican que la Tribulación está cerca?</p>
+                <p><strong>Respuesta:</strong> Las mismas que indican que el Rapto está cerca, ya que el Rapto precede a la Tribulación. La señal clave que inicia la Tribulación es la firma del pacto de paz entre el Anticristo e Israel.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Por tanto, cuando veáis en el lugar santo la abominación desoladora de que habló el profeta Daniel (el que lee, entienda)," (Mateo 24:15)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Desde la perspectiva pretribulacional, las señales (como en Mateo 24) se refieren mayormente al período de la Tribulación misma. La señal más específica es la "abominación desoladora" (la profanación del templo por el Anticristo a la mitad de la semana), que marca el inicio de la Gran Tribulación (los últimos 3.5 años).</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">8. ¿Qué y cuáles son los siete sellos?</p>
+                <p><strong>Respuesta:</strong> Son los primeros juicios de la Tribulación, contenidos en un rollo que solo el Cordero (Jesús) es digno de abrir.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Vi cuando el Cordero abrió uno de los sellos, y oí a uno de los cuatro seres vivientes decir como con voz de trueno: Ven y mira. Y miré, y he aquí un caballo blanco; y el que lo montaba tenía un arco; y le fue dada una corona, y salió venciendo, y para vencer. Cuando abrió el segundo sello, oí al segundo ser viviente, que decía: Ven y mira. Y salió otro caballo, bermejo; y al que lo montaba le fue dado poder de quitar de la tierra la paz, y que se matasen unos a otros; y se le dio una gran espada. Cuando abrió el tercer sello, oí al tercer ser viviente, que decía: Ven y mira. Y miré, y he aquí a caballo negro; y el que lo montaba tenía una balanza en la mano. Y oí una voz de en medio de los cuatro seres vivientes, que decía: Dos libras de trigo por un denario, y seis libras de cebada por un denario; pero no dañes el aceite ni el vino. Cuando abrió el cuarto sello, oí la voz del cuarto ser viviente, que decía: Ven y mira. Miré, y he aquí un caballo amarillo, y el que lo montaba tenía por nombre Muerte, y el Hades le seguía; y le fue dada potestad sobre la cuarta parte de la tierra, para matar con espada, con hambre, con mortandad, y con las fieras de la tierra." (Apocalipsis 6:1-8)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">
+                    1. <strong>Primer Sello (Caballo Blanco):</strong> El anticristo, conquistando con engaño.<br>
+                    2. <strong>Segundo Sello (Caballo Rojo):</strong> Guerra y derramamiento de sangre.<br>
+                    3. <strong>Tercer Sello (Caballo Negro):</strong> Hambruna y escasez extrema.<br>
+                    4. <strong>Cuarto Sello (Caballo Amarillo):</strong> Muerte por guerra, hambre y pestes.<br>
+                    5. <strong>Quinto Sello:</strong> Alma de los mártires de la Tribulación clamando por justicia. (Apocalipsis 6:9-11)<br>
+                    6. <strong>Sexto Sello:</strong> Un gran terremoto y catástrofes cósmicas. (Apocalipsis 6:12-17)<br>
+                    7. <strong>Séptimo Sello:</strong> Introduce el juicio de las siete trompetas. (Apocalipsis 8:1)
+                </p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">9. ¿Qué y cuáles son las siete trompetas?</p>
+                <p><strong>Respuesta:</strong> Son los siguientes juicios, más intensos que los sellos, que ocurren durante la Tribulación.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y los siete ángeles que tenían las siete trompetas se dispusieron a tocarlas. El primer ángel tocó la trompeta, y hubo granizo y fuego mezclados con sangre, que fueron lanzados sobre la tierra; y la tercera parte de los árboles se quemó, y se quemó toda la hierba verde. El segundo ángel tocó la trompeta, y como una gran montaña ardiendo en fuego fue precipitada en el mar; y la tercera parte del mar se convirtió en sangre. Y murió la tercera parte de los seres vivientes que estaban en el mar, y la tercera parte de los barcos fue destruida. El tercer ángel tocó la trompeta, y cayó del cielo una gran estrella, ardiendo como una antorcha, y cayó sobre la tercera parte de los ríos, y sobre las fuentes de las aguas. Y el nombre de la estrella es Ajenjo. y la tercera parte de las aguas se convirtió en ajenjo; y muchos hombres murieron a causa de esas aguas, porque se hicieron amargas. El cuarto ángel tocó la trompeta, y fue herida la tercera parte del sol, y la tercera parte de la luna, y la tercera parte de las estrellas, para que se oscureciese la tercera parte de ellos, y no hubiese luz en la tercera parte del día, y asimismo de la noche." (Apocalipsis 8:6-12)</p>
+                <p class="bible-verse">"El quinto ángel tocó la trompeta, y vi una estrella que cayó del cielo a la tierra, y se le dio la llave del pozo del abismo. Y abrió el pozo del abismo, y subió humo del pozo como humo de un gran horno; y se oscureció el sol y el aire por el humo del pozo. Y del humo salieron langostas sobre la tierra; y se les dio poder, como tienen poder los escorpiones de la tierra." (Apocalipsis 9:1-3)</p>
+                <p class="bible-verse">"El sexto ángel tocó la trompeta; y oí una voz de entre los cuatro cuernos del altar de oro que estaba delante de Dios, diciendo al sexto ángel que tenía la trompeta: Desata a los cuatro ángeles que están atados junto al gran río Eufrates. Y fueron desatados los cuatro ángeles que están preparados para la hora, día, mes y año, a fin de matar a la tercera parte de los hombres." (Apocalipsis 9:13-15)</p>
+                <p class="bible-verse">"El séptimo ángel tocó la trompeta, y hubo grandes voces en el cielo, que decían: Los reinos del mundo han venido a ser de nuestro Señor y de su Cristo; y él reinará por los siglos de los siglos." (Apocalipsis 11:15)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">
+                    1. <strong>Primera Trompeta:</strong> Granizo y fuego mezclados con sangre que queman la vegetación.<br>
+                    2. <strong>Segunda Trompeta:</strong> Una montaña ardiendo es arrojada al mar, matando a un tercio de la vida marina.<br>
+                    3. <strong>Tercera Trompeta:</strong> Una estrella (Ajenjo) amarga las aguas, matando a muchos.<br>
+                    4. <strong>Cuarta Trompeta:</strong> Se oscurece un tercio del sol, la luna y las estrellas.<br>
+                    5. <strong>Quinta Trompeta (Primer Ay):</strong> Langostas demoníacas atormentan a los incrédulos.<br>
+                    6. <strong>Sexta Trompeta (Segundo Ay):</strong> Se libera a cuatro ángeles con un ejército de 200 millones que mata a un tercio de la humanidad.<br>
+                    7. <strong>Séptima Trompeta (Tercer Ay):</strong> Anuncia la inminente llegada del reino de Cristo e introduce el juicio de las siete copas.
+                </p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">10. ¿Qué y cuáles son las siete copas?</p>
+                <p><strong>Respuesta:</strong> Son los juicios finales y más severos, derramados directamente sobre los seguidores del Anticristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Oí una gran voz que decía desde el templo a los siete ángeles: Id y derramad sobre la tierra las siete copas de la ira de Dios. Fue el primero y derramó su copa sobre la tierra, y vino una úlcera maligna y pestilente sobre los hombres que tenían la marca de la bestia, y que adoraban su imagen. El segundo ángel derramó su copa sobre el mar, y éste se convirtió en sangre como de muerto; y murió todo ser vivo que había en el mar. El tercer ángel derramó su copa sobre los ríos, y sobre las fuentes de las aguas, y se convirtieron en sangre. Y oí al ángel de las aguas, que decía: Justo eres tú, oh Señor, el que eres y que eras, el Santo, porque has juzgado estas cosas. Por ellos derramaron la sangre de los santos y de los profetas, también tú les has dado a beber sangre; pues lo merecen. También oí a otro, que desde el altar decía: Ciertamente, Señor Dios Todopoderoso, tus juicios son verdaderos y justos. El cuarto ángel derramó su copa sobre el sol, al cual fue dado quemar a los hombres con fuego. Y los hombres se quemaron con el gran calor, y blasfemaron el nombre de Dios, que tiene poder sobre estas plagas, y no se arrepintieron para darle gloria. El quinto ángel derramó su copa sobre el trono de la bestia; y su reino se cubrió de tinieblas, y mordían de dolor sus lenguas, y blasfemaron contra el Dios del cielo por sus dolores y por sus úlceras, y no se arrepintieron de sus obras. El sexto ángel derramó su copa sobre el gran río Eufrates; y el agua de éste se secó, para que estuviese preparado el camino a los reyes del oriente. Y vi salir de la boca del dragón, y de la boca de la bestia, y de la boca del falso profeta, tres espíritus inmundos a manera de ranas; pues son espíritus de demonios, que hacen señales, y van a los reyes de la tierra en todo el mundo, para reunirlos a la batalla de aquel gran día del Dios Todopoderoso. He aquí, yo vengo como ladrón. Bienaventurado el que vela, y guarda sus ropas, para que no ande desnudo, y vean su vergüenza. Y los reunió en el lugar que en hebreo se llama Armagedón. El séptimo ángel derramó su copa por el aire; y salió una gran voz del templo del cielo, del trono, diciendo: Hecho está. Entonces hubo relámpagos, voces, truenos, y un gran temblor de tierra, un terremoto tan grande, cual no lo hubo jamás desde que los hombres han estado sobre la tierra. Y la gran ciudad fue dividida en tres partes, y las ciudades de las naciones cayeron; y la gran Babilonia vino en memoria delante de Dios, para darle el cáliz del vino del ardor de su ira. Y toda isla huyó, y los montes no fueron hallados. Y cayó del cielo sobre los hombres un enorme granizo como del peso de un talento; y los hombres blasfemaron contra Dios por la plaga del granizo; porque su plaga fue sobremanera grande." (Apocalipsis 16:1-21)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">
+                    1. <strong>Primera Copa:</strong> Úlceras malignas en los seguidores del Anticristo.<br>
+                    2. <strong>Segunda Copa:</strong> El mar se convierte en sangre, matando toda vida marina.<br>
+                    3. <strong>Tercera Copa:</strong> Los ríos y fuentes se convierten en sangre.<br>
+                    4. <strong>Cuarta Copa:</strong> Los hombres son quemados por un calor intenso del sol.<br>
+                    5. <strong>Quinta Copa:</strong> Tinieblas y dolor sobre el reino del Anticristo.<br>
+                    6. <strong>Sexta Copa:</strong> El Éufrates se seca para preparar el camino a los reyes del oriente hacia Armagedón.<br>
+                    7. <strong>Séptima Copa:</strong> Terremoto masivo y granizo enorme; se anuncia "¡Hecho está!".
+                </p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">11. ¿Qué sucede después de estas cosas?</p>
+                <p><strong>Respuesta:</strong> La Segunda Venida de Cristo en gloria y el inicio del Reino Milenial.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Entonces vi el cielo abierto; y he aquí un caballo blanco, y el que lo montaba se llamaba Fiel y Verdadero, y con justicia juzga y pelea. Sus ojos eran como llama de fuego, y había en su cabeza muchas diademas; y tenía un nombre escrito que ninguno conocía sino él mismo. Estaba vestido de una ropa teñida en sangre; y su nombre es: EL VERBO DE DIOS. Y los ejércitos celestiales, vestidos de lino finísimo, blanco y limpio, le siguieron en caballos blancos. De su boca sale una espada aguda, para herir con ella a las naciones, y él las regirá con vara de hierro; y él pisa el lagar del vino del furor y de la ira del Dios Todopoderoso. Y en su vestidura y en su muslo tiene escrito este nombre: REY DE REYES Y SEÑOR DE SEÑORES." (Apocalipsis 19:11-16)</p>
+                <p class="bible-verse">"Y prendieron a la bestia, y con ella al falso profeta que había hecho delante de ella las señales con las cuales había engañado a los que recibieron la marca de la bestia, y habían adorado su imagen. Estos dos fueron lanzados vivos dentro de un lago de fuego que arde con azufre. Y los demás fueron muertos con la espada que salía de la boca del que montaba el caballo, y todas las aves se saciaron de las carnes de ellos." (Apocalipsis 19:20-21)</p>
+                <p class="bible-verse">"Y vi a un ángel que descendía del cielo, con la llave del abismo, y una gran cadena en la mano. Y prendió al dragón, la serpiente antigua, que es el diablo y Satanás, y lo ató por mil años; y lo arrojó al abismo, y lo encerró, y puso su sello sobre él, para que no engañase más a las naciones, hasta que fuesen cumplidos los mil años; y después de esto debe ser desatado por un poco de tiempo." (Apocalipsis 20:1-3)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Cristo regresa visiblemente a la tierra con sus santos (los raptados) para derrotar a los ejércitos del Anticristo en Armagedón, establecer su reino milenial y atar a Satanás.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">12. ¿Qué es el Reino Milenial?</p>
+                <p><strong>Respuesta:</strong> El reinado de 1000 años de Jesucristo desde Jerusalén sobre toda la tierra.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y vivieron y reinaron con Cristo mil años." (Apocalipsis 20:4)</p>
+                <p class="bible-verse">"He aquí, vienen días, dice Jehová, en que levantaré a David renuevo justo, y reinará como Rey, el cual será dichoso, y hará juicio y justicia en la tierra." (Jeremías 23:5)</p>
+                <p class="bible-verse">"Y Jehová será rey sobre toda la tierra. En aquel día Jehová será uno, y uno su nombre." (Zacarías 14:9)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Es el cumplimiento de las promesas del Antiguo Testamento sobre el reinado mesiánico. Cristo gobernará el mundo con justicia desde el trono de David en Jerusalén.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">13. ¿Dónde será el Reino Milenial?</p>
+                <p><strong>Respuesta:</strong> En la tierra, con Jerusalén como capital central.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y de Jerusalén saldrá un remanente, y del monte de Sion los que se salven. El celo de Jehová de los ejércitos hará esto." (2 Reyes 19:31)</p>
+                <p class="bible-verse">"Acontecerá en lo postrero de los tiempos, que será confirmado el monte de la casa de Jehová como cabeza de los montes, y será exaltado sobre los collados, y correrán a él todas las naciones." (Isaías 2:2)</p>
+                <p class="bible-verse">"Así ha dicho Jehová de los ejércitos: Aún han de morar ancianos y ancianas en las calles de Jerusalén, cada cual con bordón en su mano por la multitud de los días. Y las calles de la ciudad estarán llenas de muchachos y muchachas que jugarán en ellas." (Zacarías 8:4-5)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La tierra será restaurada pero no completamente renovada. Jerusalén será el centro de gobierno y adoración mundial durante el milenio.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">14. ¿Cómo será el Reino Milenial?</p>
+                <p><strong>Respuesta:</strong> Un tiempo de paz, justicia, conocimiento de Dios, prosperidad y longevidad.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Juzgará entre las naciones, y reprenderá a muchos pueblos; y volverán sus espadas en rejas de arado, y sus lanzas en hoces; no alzará espada nación contra nación, ni se adiestrarán más para la guerra." (Isaías 2:4)</p>
+                <p class="bible-verse">"Morará el lobo con el cordero, y el leopardo con el cabrito se acostará; el becerro y el león y la bestia doméstica andarán juntos, y un niño los pastoreará." (Isaías 11:6)</p>
+                <p class="bible-verse">"Porque la tierra será llena del conocimiento de Jehová, como las aguas cubren el mar." (Isaías 11:9)</p>
+                <p class="bible-verse">"No harán mal ni dañarán en todo mi santo monte." (Isaías 11:9)</p>
+                <p class="bible-verse">"No trabajarán en vano, ni darán a luz para maldición; porque son linaje de los benditos de Jehová, y sus descendientes con ellos." (Isaías 65:23)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Será una era dorada donde las maldiciones del pecado serán parcialmente levantadas. Habrá paz en la naturaleza, justicia social, prosperidad económica y conocimiento universal de Dios.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">15. ¿Cómo será la vida cotidiana en el Reino Milenial?</p>
+                <p><strong>Respuesta:</strong> La vida continuará con trabajo, culto, familia y gobierno, pero bajo la autoridad directa de Cristo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Edificarán casas, y morarán en ellas; plantarán viñas, y comerán el fruto de ellas. No edificarán para que otro habite, ni plantarán para que otro coma; porque según los días de los árboles serán los días de mi pueblo, y mis escogidos disfrutarán la obra de sus manos." (Isaías 65:21-22)</p>
+                <p class="bible-verse">"Y todos vendrán, y se manifestará la gloria de Jehová." (Isaías 66:23)</p>
+                <p class="bible-verse">"Y muchos pueblos y fuertes naciones vendrán a buscar a Jehová de los ejércitos en Jerusalén, y a implorar el favor de Jehová." (Zacarías 8:22)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">La vida tendrá continuidad con actividades normales como construir, plantar, trabajar y adorar, pero en un ambiente de justicia, paz y obediencia en Cristo. Las naciones subirán a Jerusalén para adorar al Rey.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">16. ¿Qué sucede al final del Reino Milenial?</p>
+                <p><strong>Respuesta:</strong> Satanás es soltado, engaña a las naciones una vez más, es derrotado definitivamente, y luego viene el Juicio del Gran Trono Blanco.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Cuando los mil años se cumplan, Satanás será suelto de su prisión, y saldrá a engañar a las naciones que están en los cuatro ángulos de la tierra, a Gog y a Magog, a fin de reunirlos para la batalla; el número de los cuales es como la arena del mar. Y subieron sobre la anchura de la tierra, y rodearon el campamento de los santos y la ciudad amada; y de Dios descendió fuego del cielo, y los consumió. Y el diablo que los engañaba fue lanzado en el lago de fuego y azufre, donde estaban la bestia y el falso profeta; y serán atormentados día y noche por los siglos de los siglos." (Apocalipsis 20:7-10)</p>
+                <p class="bible-verse">"Y vi a un gran trono blanco y al que estaba sentado en él, de delante del cual huyeron la tierra y el cielo, y ningún lugar se encontró para ellos." (Apocalipsis 20:11)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Dios permite una prueba final que demostrará la pecaminosidad inherente del corazón humano incluso después de mil años de perfecto gobierno. Los rebeldes son destruidos, Satanás es lanzado al lago de fuego, y comienza el juicio final de los incrédulos de todas las épocas.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">17. ¿Qué es el nuevo Cielo y nueva Tierra?</p>
+                <p><strong>Respuesta:</strong> La creación eterna y perfecta de Dios, completamente renovada, donde morará la justicia.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Pero nosotros esperamos, según sus promesas, cielos nuevos y tierra nueva, en los cuales mora la justicia." (2 Pedro 3:13)</p>
+                <p class="bible-verse">"Porque he aquí, yo creo nuevos cielos y nueva tierra; y no serán más recordadas las cosas primeras, ni vendrán a la memoria." (Isaías 65:17)</p>
+                <p class="bible-verse">"Y el que estaba sentado en el trono dijo: He aquí, yo hago nuevas todas las cosas. Y me dijo: Escribe; porque estas palabras son fieles y verdaderas." (Apocalipsis 21:5)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Después del juicio final, Dios creará un nuevo universo perfecto, libre de toda mancha de pecado, maldición y muerte. Será el estado eterno final de los redimidos.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">18. ¿Dónde será el nuevo Cielo y nueva Tierra?</p>
+                <p><strong>Respuesta:</strong> Reemplazará al cielo y la tierra actuales.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Pero el día del Señor vendrá como ladrón en la noche; en el cual los cielos pasarán con grande estruendo, y los elementos ardiendo serán deshechos, y la tierra y las obras que en ella hay serán quemadas." (2 Pedro 3:10)</p>
+                <p class="bible-verse">"Y vi un cielo nuevo y una tierra nueva; porque el primer cielo y la primera tierra pasaron, y el mar ya no existía más." (Apocalipsis 21:1)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">El universo actual será destruido y reemplazado por uno nuevo y perfecto. No será una mera renovación sino una creación completamente nueva.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">19. ¿Cómo será el nuevo Cielo y nueva Tierra?</p>
+                <p><strong>Respuesta:</strong> Un lugar de belleza, santidad y gloria indescriptibles, donde Dios morará directamente con su pueblo.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y yo Juan vi la santa ciudad, la nueva Jerusalén, descender del cielo, de Dios, dispuesta como una esposa ataviada para su marido. Y oí una gran voz del cielo que decía: He aquí el tabernáculo de Dios con los hombres, y él morará con ellos; y ellos serán su pueblo, y Dios mismo estará con ellos como su Dios." (Apocalipsis 21:2-3)</p>
+                <p class="bible-verse">"Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor; porque las primeras cosas pasaron." (Apocalipsis 21:4)</p>
+                <p class="bible-verse">"El que venciere heredará todas las cosas, y yo seré su Dios, y él será mi hijo." (Apocalipsis 21:7)</p>
+                <p class="bible-verse">"La ciudad no tiene necesidad de sol ni de luna que brillen en ella; porque la gloria de Dios la ilumina, y el Cordero es su lumbrera." (Apocalipsis 21:23)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Será un lugar de perfecta comunión con Dios, sin pecado, dolor, muerte o separación. La Nueva Jerusalén descenderá del cielo como la morada de los redimidos.</p>
+            </div>
+            
+            <div class="complete-answer">
+                <p class="answer-header">20. ¿Cómo será la vida cotidiana en el nuevo Cielo y nueva Tierra?</p>
+                <p><strong>Respuesta:</strong> Una vida de adoración perfecta, servicio gozoso, comunión con Dios y exploración de las maravillas de la nueva creación.</p>
+                <p class="verse-title">Fundamento Bíblico:</p>
+                <p class="bible-verse">"Y no habrá más maldición; y el trono de Dios y del Cordero estará en ella, y sus siervos le servirán." (Apocalipsis 22:3)</p>
+                <p class="bible-verse">"Y verán su rostro, y su nombre estará en sus frentes." (Apocalipsis 22:4)</p>
+                <p class="bible-verse">"No habrá allí noche; y no tienen necesidad de luz de lámpara, ni de luz del sol, porque Dios el Señor los iluminará, y reinarán por los siglos de los siglos." (Apocalipsis 22:5)</p>
+                <p class="explanation-title">Explicación:</p>
+                <p class="explanation">Los redimidos servirán a Dios y reinarán con Él por la eternidad. Tendremos cuerpos glorificados perfectamente adaptados para la vida en la nueva creación, y disfrutaremos de una relación cara a cara con nuestro Creador.</p>
+            </div>
+            
+        </div>
+
+        <div id="finalMessage" class="final-message" style="display:none;">
+            <h3 class="final-title">MENSAJE FINAL: TU DESTINO ETERNO ESTÁ EN JUEGO</h3>
+            <p class="final-text">Querido amigo/a, este test bíblico tiene como propósito ayudarte a examinarte a ti mismo según lo exhorta la Escritura en 2 Corintios 13:5.</p>
+            
+            <div class="salvation-call">
+                <h4 class="salvation-title">¿QUÉ DEBES HACER PARA SER SALVO?</h4>
+                <p class="final-text"><span class="strong-warning">¡ES URGENTE! PASOS PARA NACER DE NUEVO.</span></p>
+                <p class="final-text">La salvación es un regalo de Dios que se recibe por gracia mediante la fe en Jesucristo. No es por obras para que nadie se gloríe (Efesios 2:8-9).</p>
+                <p class="final-text">Los dos requisitos son: ARREPENTIMIENTO Y FE:</p>
+                <p class="final-text">1. <strong>ARREPENTIMIENTO:</strong> Enciérrate en tu habitación o en algún lugar donde puedas estar solo/a, arrodíllate en el suelo y habla con el Señor Jesús y reconoce que eres pecador, moralmente corrupto, espiritualmente muerto, judicialmente condenado al infierno y acéptale de corazón como tu único salvador.</p>
+                <p class="final-text">2. <strong>FE:</strong> Tu arrepentimiento debe ser con FE, porque sin FE, no serás salvo, porque es lo mismo que no creer, recuerda que Jesús ve a través del corazón y la FE se adquiere oyendo la palabra de Dios.</p>
+                <p class="final-text">3. <strong>HUMÍLLATE</strong> ante el Señor Jesucristo y lee la biblia por lo menos una hora al día (comienza desde el apocalipsis), mira la serie bíblica que te proporcionaré en la página siguiente para conocerle a Jesús y adquirirás la fe necesaria para NACER DE NUEVO y sentirás un bonito cambio en tu vida cuando el ESPÍRITU SANTO MORE EN TI.</p>
+                <p class="final-text">4. <strong>HAZLO URGENTEMENTE</strong> porque si mueres en este mismo instante y no lo has aceptado como tu salvador, ya no hay nada que hacer, porque la salvación es personal y en vida.</p>
+                <p class="final-text">5. <strong>LA PUERTA</strong> se está por cerrar, por favor no dejes pasar el tiempo, recuerda que Dios y Jesús te amaron hace 2 mil años, cuando Jesús derramó su sangre por tus pecados en la cruz y lo que viene es la ira de Dios para los no creyentes.</p>
+            </div>
+            
+            <p class="final-text">No importa cuán grande sea tu pecado, la sangre de Jesucristo tiene poder para limpiarte completamente. ¡No retrases esta decisión! Puede ser tu última oportunidad.</p>
+            
+            <p class="final-verse">"Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna." (Juan 3:16)</p>
+            <p class="final-verse">"He aquí, yo estoy a la puerta y llamo; si alguno oye mi voz y abre la puerta, entraré a él, y cenaré con él, y él conmigo." (Apocalipsis 3:20)</p>
+            <p class="final-verse">"Y en ningún otro hay salvación; porque no hay otro nombre bajo el cielo, dado a los hombres, en que podamos ser salvos." (Hechos 4:12)</p>
+            
+            <button class="big-button" onclick="showResourcesSection()">Ver Recursos Adicionales</button>
+        </div>
+    </div>
+
+    <div id="resourcesSection" class="section">
+        <h2 class="resources-title">Recursos Adicionales</h2>
+        
+        <div class="resource-container">
+            <h3 class="resource-title">Serie Bíblica - Jesús (Audio Latino)</h3>
+            <div class="iframe-container">
+                <iframe src="https://seriesbiblicas.net/jesus-audio-latino/" allowfullscreen></iframe>
+            </div>
+            <p class="resource-description">Una serie completa sobre la vida de Jesús con audio en español para profundizar en el conocimiento de nuestro Salvador.</p>
+        </div>
+        
+        <button class="big-button" onclick="showTimesSection()">Continuar a "En qué tiempos estamos"</button>
+    </div>
+
+    <div id="timesSection" class="section">
+        <h2 class="times-title">EN QUE TIEMPOS ESTAMOS</h2>
+        
+        <div class="times-content">
+            <p class="final-text">La Biblia describe numerosas señales que indicarían la proximidad del fin de los tiempos y la segunda venida de Cristo.</p>
+            
+            <h3 class="times-subtitle">1. Señales Espirituales y Religiosas</h3>
+            
+            <p class="verse-title">a) Apostasía (Abandono Colectivo de la Fe Verdadera):</p>
+            <p class="bible-verse">"Nadie os engañe en ninguna manera; porque no vendrá sin que antes venga la apostasía, y se manifieste el hombre de pecado, el hijo de perdición." (2 Tesalonicenses 2:3)</p>
+            <p class="bible-verse">"Pero el Espíritu dice claramente que en los postreros tiempos algunos apostatarán de la fe, escuchando a espíritus engañadores y a doctrinas de demonios." (1 Timoteo 4:1)</p>
+            <p class="explanation">Se describe un alejamiento organizado de las doctrinas centrales del cristianismo bíblico y una apertura a enseñanzas espiritualistas y engañosas, que preparan el camino para la aceptación del Anticristo.</p>
+            
+            <p class="verse-title">b) Aparición de Falsos Cristos y Profetas:</p>
+            <p class="bible-verse">"Respondiendo Jesús, les dijo: Mirad que nadie os engañe. Porque vendrán muchos en mi nombre, diciendo: Yo soy el Cristo; y a muchos engañarán... Y muchos falsos profetas se levantarán, y engañarán a muchos... porque se levantarán falsos cristos, y falsos profetas, y harán grandes señales y prodigios, de tal manera que engañarán, si fuere posible, aun a los escogidos." (Mateo 24:4-5, 11, 24)</p>
+            <p class="explanation">Un aumento dramático de líderes religiosos fraudulentos, sectas y mesías falsos que realizarán señales milagrosas para desviar a la gente, creando un clima de confusión espiritual.</p>
+            
+            <p class="verse-title">c) Derramamiento del Espíritu y Profecía:</p>
+            <p class="bible-verse">"Y en los postreros días, dice Dios, Derramaré de mi Espíritu sobre toda carne, Y vuestros hijos y vuestras hijas profetizarán; Vuestros jóvenes verán visiones, Y vuestros ancianos soñarán sueños." (Hechos 2:17)</p>
+            <p class="explanation">En contraparte al engaño, Dios promete un avivamiento espiritual culminante con manifestaciones de sueños, visiones y profecía genuinos, para guiar y advertir a la gente antes del día del juicio.</p>
+            
+            <p class="verse-title">d) Burla y Escepticismo hacia la Segunda Venida:</p>
+            <p class="bible-verse">"sabiendo primero esto, que en los postreros días vendrán burladores, andando según sus propias concupiscencias, y diciendo: ¿Dónde está la promesa de su advenimiento? Porque desde el día en que los padres durmieron, todas las cosas permanecen así como desde el principio de la creación." (2 Pedro 3:3-4)</p>
+            <p class="explanation">La cosmovisión naturalista y materialista se impondrá, ridiculizando activamente la creencia en el regreso literal de Cristo.</p>
+            
+            <h3 class="times-subtitle">2. Señales en la Sociedad y la Moral</h3>
+            
+            <p class="verse-title">a) Corrupción Moral Generalizada y Egocentrismo:</p>
+            <p class="bible-verse">"También debes saber esto: que en los postreros días vendrán tiempos peligrosos. Porque habrá hombres amadores de sí mismos, avaros, vanagloriosos, soberbios, blasfemos, desobedientes a los padres, ingratos, impíos, sin afecto natural, implacables, calumniadores, intemperantes, crueles, aborrecedores de lo bueno, traidores, impetuosos, infatuados, amadores de los deleites más que de Dios, que tendrán apariencia de piedad, pero negarán la eficacia de ella; a éstos evita." (2 Timoteo 3:1-5)</p>
+            <p class="explanation">Una descripción detallada de una sociedad en decadencia moral, donde predominan el amor al placer, el egoísmo y una religiosidad vacía y hipócrita.</p>
+            
+            <p class="verse-title">b) Persecución y Odio hacia los Creyentes:</p>
+            <p class="bible-verse">"Entonces os entregarán a tribulación, y os matarán, y seréis aborrecidos de todas las gentes por causa de mi nombre." (Mateo 24:9)</p>
+            <p class="explanation">Un aumento global de la intolerancia, la persecución legal, social y física contra aquellos que se mantienen fieles a Cristo y a sus valores.</p>
+            
+            <h3 class="times-subtitle">3. Señales Geopolíticas y Globales</h3>
+            
+            <p class="verse-title">a) Guerras y Conflictos Internacionales:</p>
+            <p class="bible-verse">"Y oiréis de guerras y rumores de guerras; mirad que no os turbéis, porque es necesario que todo esto acontezca; pero aún no es el fin. Porque se levantará nación contra nación, y reino contra reino..." (Mateo 24:6-7a)</p>
+            <p class="explanation">Un estado permanente de inestabilidad geopolítica, tensiones entre superpotencias y conflictos regionales como "dolores de parto" previos al período final.</p>
+            
+            <p class="verse-title">b) Hambrunas, Pestes/Epidemias y Terremotos:</p>
+            <p class="bible-verse">"...y habrá pestes, y hambres, y terremotos en diferentes lugares. Y todo esto será principio de dolores." (Mateo 24:7b-8)</p>
+            <p class="explanation">Un incremento notable en la frecuencia, intensidad y simultaneidad de desastres naturales, escasez de alimentos y pandemias globales.</p>
+            
+            <p class="verse-title">c) Señales en los Cielos y la Naturaleza:</p>
+            <p class="bible-verse">"y habrá grandes terremotos, y en diferentes lugares hambres y pestilencias; y habrá terror y grandes señales del cielo... Entonces habrá señales en el sol, en la luna y en las estrellas, y en la tierra angustia de las naciones, perplejas a causa del bramido del mar y de las olas; desfalleciendo los hombres por el temor y la expectación de las cosas que sobrevendrán en la tierra; porque las potencias de los cielos serán conmovidas." (Lucas 21:11, 25-26)</p>
+            <p class="explanation">Fenómenos astronómicos inusuales y desastres naturales de una escala tan colosal que causarán terror y perplejidad a nivel mundial.</p>
+            
+            <p class="verse-title">d) Aumento del Conocimiento y la Velocidad de Viaje:</p>
+            <p class="bible-verse">"Pero tú, Daniel, cierra las palabras y sella el libro hasta el tiempo del fin. Muchos correrán de aquí para allá, y la ciencia se aumentará." (Daniel 12:4)</p>
+            <p class="explanation">Una profecía que describe de manera exacta la explosión de conocimiento tecnológico y científico, y la capacidad de viajar y comunicarse rápidamente por todo el mundo, características definitorias de la era moderna que permiten el escenario global necesario para el gobierno del Anticristo.</p>
+            
+            <h3 class="times-subtitle">4. Señales con respecto a Israel (El "Reloj Profético")</h3>
+            
+            <p class="verse-title">a) El Reestablecimiento de la Nación de Israel:</p>
+            <p class="bible-verse">"Porque os tomaré de las naciones, y os recogeré de todas las tierras, y os llevaré a vuestra propia tierra... Así ha dicho Jehová el Señor: He aquí, yo tomo a los hijos de Israel de entre las naciones a las cuales fueron, y los recogeré de todas partes, y los llevaré a su tierra." (Ezequiel 36:24, 37:21)</p>
+            <p class="bible-verse">"¿Quién oyó cosa semejante? ¿Quién vio tal como ésta? ¿Concebirá la tierra en un día? ¿Nacerá una nación de una vez? Pues en cuanto Sion estuvo de parto, dio a sus hijos." (Isaías 66:8)</p>
+            <p class="explanation">El renacimiento de Israel en 1948 (en un solo día) es considerado el evento precursor geopolítico más significativo, que reactiva el "reloj profético" de Dios para las naciones.</p>
+            
+            <p class="verse-title">b) La Reocupación de Jerusalén:</p>
+            <p class="bible-verse">"y caerán a filo de espada, y serán llevados cautivos a todas las naciones; y Jerusalén será hollada por los gentiles, hasta que los tiempos de los gentiles se cumplan." (Lucas 21:24)</p>
+            <p class="explanation">La reconquista de Jerusalén por Israel en 1967 es vista como el cumplimiento de que los "tiempos de los gentiles" sobre la ciudad estaban llegando a su fin, otro hito crucial.</p>
+            
+            <p class="verse-title">c) Jerusalén como Piedra Pesada:</p>
+            <p class="bible-verse">"He aquí yo pongo a Jerusalén por copa que hará temblar a todos los pueblos de alrededor... Y en aquel día yo pondré a Jerusalén por piedra pesada a todos los pueblos; todos los que se la cargaren serán despedazados, bien que todas las naciones de la tierra se juntarán contra ella." (Zacarías 12:2-3)</p>
+            <p class="explanation">La profecía de que Jerusalén se convertiría en el epicentro de la controversia y el conflicto global, una descripción exacta de la realidad actual.</p>
+            
+            <p class="verse-title">d) Los Preparativos para la Construcción del Tercer Templo:</p>
+            <p class="bible-verse">"Nadie os engañe en ninguna manera; porque no vendrá sin que antes venga la apostasía, y se manifieste el hombre de pecado, el hijo de perdición, el cual se opone y se levanta contra todo lo que se llama Dios o es objeto de culto; tanto que se sienta en el templo de Dios como Dios, haciéndose pasar por Dios." (2 Tesalonicenses 2:3-4)</p>
+            <p class="bible-verse">"Y por otra semana confirmará el pacto con muchos; a la mitad de la semana hará cesar el sacrificio y la ofrenda..." (Daniel 9:27)</p>
+            <p class="explanation">El hecho de que existan grupos en Israel activamente preparados, con los utensilios rituales y los planos listos para reconstruir el Templo, es una señal potentísima. La profecía indica que el Anticristo profanará un templo judío funcional en Jerusalén a la mitad de la semana de años (Tribulación). Por lo tanto, los movimientos hacia su construcción son un acontecimiento previo clave.</p>
+            
+            <h3 class="times-subtitle">5. Señales de Preparación para un Gobierno Global</h3>
+            
+            <p class="verse-title">a) Unificación Política y Debilidad (Revivido Imperio Romano):</p>
+            <p class="bible-verse">"Y lo que viste de los pies y los dedos, en parte de barro cocido de alfarero y en parte de hierro, será un reino dividido; mas habrá en él algo de la fuerza del hierro, así como viste hierro mezclado con barro cocido. Y por ser los dedos de los pies en parte de hierro y en parte de barro cocido, el reino será en parte fuerte, y en parte frágil. Así como viste el hierro mezclado con barro, se mezclarán por medio de alianzas humanas; pero no se unirán el uno con el otro, como el hierro no se mezcla con el barro." (Daniel 2:41-43)</p>
+            <p class="explanation">La tendencia hacia uniones de naciones (como la UE) que son fuertes económicamente pero débiles en cohesión política y cultural, preparando la estructura para la confederación del Anticristo.</p>
+            
+            <p class="verse-title">b) Preparación para un Control Económico Global:</p>
+            <p class="bible-verse">"Y hacía que a todos, pequeños y grandes, ricos y pobres, libres y esclavos, se les pusiese una marca en la mano derecha, o en la frente; y que ninguno pudiese comprar ni vender, sino el que tuviese la marca o el nombre de la bestia, o el número de su nombre." (Apocalipsis 13:16-17)</p>
+            <p class="explanation">La tecnología actual (economía digital, banca central digital, inteligencia artificial) está creando la infraestructura necesaria para el sistema de control económico que el Anticristo implementará durante la Tribulación. Su desarrollo es una señal potente de que el escenario se está preparando.</p>
+            
+            <div class="times-conclusion">
+                <h4 class="times-conclusion-title">Conclusión</h4>
+                <p class="final-text">El propósito de estas señales no es fomentar el miedo, sino:</p>
+                <ul class="times-list">
+                    <li>Dar discernimiento sobre los tiempos en que vivimos.</li>
+                    <li>Avivar la esperanza en la promesa del regreso de Cristo.</li>
+                    <li>Motivar la santidad y la vigilancia en la vida personal (1 Juan 3:3)</li>
+                    <li>Urgir la evangelización, ya que el tiempo es corto (Mateo 24:14)</li>
+                </ul>
+                <p class="final-text">La convergencia simultánea de todas estas señales—espirituales, morales, naturales, tecnológicas y geopolíticas (especialmente en relación con Israel)—es un fenómeno único en la historia, indicando que el rapto de la Iglesia podría ser inminente.</p>
+            </div>
+        </div>
+        
+        <div class="resource-container">
+            <h3 class="resource-title">En qué tiempos estamos</h3>
+            <div class="iframe-container">
+                <div class="video-placeholder">
+                    <div class="play-icon">▶</div>
+                    <p>El video no se puede cargar directamente.<br>Haz clic en el enlace debajo para ver el video de en que tiempos estamos en YouTube.</p>
+                    <a href="https://youtu.be/LPFSqmAtWQ0" class="video-link" target="_blank">Ver en YouTube</a>
+                </div>
+            </div>
+            <p class="resource-description">Un video sobre en qué tiempos estamos según las profecías bíblicas.</p>
+        </div>
+        
+        <button class="big-button" onclick="showCatholicSection()">Continuar a "Creencias Católicas vs La Biblia"</button>
+    </div>
+
+    <!-- NUEVA SECCIÓN: CREENCIAS CATÓLICAS VS LA BIBLIA -->
+    <div id="catholicSection" class="section">
+        <h2 class="catholic-title">CREENCIAS CATÓLICAS VS LA BIBLIA</h2>
+        
+        <div class="catholic-content">
+            <p>A continuación se presenta un análisis comparativo entre algunas creencias y prácticas católicas y lo que realmente enseña la Biblia:</p>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">1. La Adoración (Latría) vs Veneración (Dulía)</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Distinguen entre adoración (reservada solo a Dios) y veneración (dada a santos, vírgenes y ángeles).
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Al Señor tu Dios adorarás, y a él solo servirás" (Mateo 4:10).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia no hace tal distinción. Cuando Cornelio intentó venerar a Pedro, este le respondió: "Levántate, pues yo mismo también soy hombre" (Hechos 10:25-26). De igual manera, cuando Juan intentó adorar a un ángel, este le dijo: "¡No lo hagas! Yo soy consiervo tuyo... Adora a Dios" (Apocalipsis 19:10; 22:8-9).
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">2. La Mediación de los Santos</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Enseñan que María y los santos pueden interceder por nosotros ante Dios.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Porque hay un solo Dios, y un solo mediador entre Dios y los hombres, Jesucristo hombre" (1 Timoteo 2:5).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia no menciona en ningún lugar que los santos o María puedan interceder por nosotros. Al contrario, enseña que Jesucristo es el único mediador y que podemos acercarnos confiadamente al trono de la gracia (Hebreos 4:16).
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">3. El Culto a Imágenes</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Practican la veneración de imágenes de santos, vírgenes y crucifijos, argumentando que no son ídolos sino "representaciones".
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "No te harás imagen, ni ninguna semejanza de lo que esté arriba en el cielo, ni abajo en la tierra, ni en las aguas debajo de la tierra. No te inclinarás a ellas, ni las honrarás" (Éxodo 20:4-5).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia es clara en prohibir cualquier tipo de culto a imágenes, independientemente de la intención con que se haga. Isaías 42:8 declara: "Yo soy Jehová; este es mi nombre; y a otro no daré mi gloria, ni mi alabanza a esculturas".
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">4. La Virginidad Perpetua de María</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Enseñan que María permaneció virgen toda su vida.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Y [José] no la conoció hasta que dio a luz a su hijo primogénito; y le puso por nombre JESÚS" (Mateo 1:25).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia menciona claramente que Jesús tuvo hermanos (Marcos 6:3; Mateo 12:46-47; Juan 7:5). El término "primogénito" implica que hubo otros hijos después. Además, la expresión "no la conoció hasta que" sugiere que después del nacimiento de Jesús, José y María tuvieron relaciones conyugales normales.
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">5. La Inmaculada Concepción de María</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Enseñan que María fue concebida sin pecado original.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Por cuanto todos pecaron, y están destituidos de la gloria de Dios" (Romanos 3:23).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia declara que todos los seres humanos han pecado, con la única excepción de Jesucristo. La misma María reconoció su necesidad de un Salvador cuando dijo: "Mi espíritu se regocija en Dios mi Salvador" (Lucas 1:47). Si hubiera sido sin pecado, no habría necesitado un Salvador.
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">7. El Purgatorio</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Enseñan la existencia de un lugar de purificación después de la muerte.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Y de la manera que está establecido para los hombres que mueran una sola vez, y después de esto el juicio" (Hebreos 9:27).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia no menciona el purgatorio en ninguna parte. Por el contrario, enseña que después de la muerte viene el juicio. Jesús en la parábola del rico y Lázaro (Lucas 16:19-31) muestra dos destinos inmediatos después de la muerte: el seno de Abraham (para los salvos) y el Hades (para los perdidos), sin mencionar un tercer lugar de purificación.
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">8. La Oración por los Muertos</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Practican la oración por los difuntos para "ayudarles" en el purgatorio.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Los muertos nada saben... nunca más tendrán parte en nada de lo que se hace bajo el sol" (Eclesiastés 9:5-6).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia enseña claramente que los muertos no pueden recibir ningún beneficio de las oraciones de los vivos. En la parábola del rico y Lázaro, Abraham le dice al rico: "Hay un gran abismo... de modo que los que quieran pasar de aquí a vosotros no pueden" (Lucas 16:26), indicando que no hay comunicación ni ayuda posible entre vivos y muertos.
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">9. La Infalibilidad Papal</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Enseñan que el Papa es infalible cuando habla "ex cathedra" en materia de fe y moral.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "No hay quien haga lo bueno, no hay ni siquiera uno" (Romanos 3:12).
+                </div>
+                <div class="catholic-explanation">
+                    La Biblia declara que todos los seres humanos son pecadores y falibles. Solo Dios es perfecto e infalible. La idea de que un ser humano pueda ser infalible contradice la enseñanza bíblica de la pecaminosidad universal de la humanidad.
+                </div>
+            </div>
+            
+            <div class="catholic-point">
+                <div class="catholic-point-title">10. La Tradición como Autoridad</div>
+                <div class="catholic-explanation">
+                    <strong>Creencia Católica:</strong> Consideran la tradición de la Iglesia con la misma autoridad que la Biblia.
+                </div>
+                <div class="catholic-verse">
+                    <strong>Enseñanza Bíblica:</strong> "Escudriñad las Escrituras... ellas son las que dan testimonio de mí" (Juan 5:39).
+                </div>
+                <div class="catholic-explanation">
+                    Jesús y los apóstoles siempre apelaron a las Escrituras como la máxima autoridad, nunca a tradiciones humanas. Jesús reprendió a los fariseos por invalidar la Palabra de Dios con sus tradiciones (Marcos 7:8-9, 13). La Biblia es suficiente para equiparnos para toda buena obra (2 Timoteo 3:16-17).
+                </div>
+            </div>
+        </div>
+        
+        <div class="catholic-conclusion">
+            <div class="catholic-conclusion-title">CONCLUSIÓN BÍBLICA</div>
+            <p>La Biblia es clara en que la salvación es por gracia mediante la fe en Jesucristo solamente (Efesios 2:8-9), no por obras, sacramentos o mediación de santos. Jesucristo es el único mediador entre Dios y los hombres (1 Timoteo 2:5), el único camino al Padre (Juan 14:6), y el único que puede perdonar pecados (Hechos 4:12).</p>
+            <p>Las prácticas y doctrinas católicas que contradicen las enseñanzas bíblicas son tradiciones humanas que Jesús condenó cuando dijo: "Invalidáis el mandamiento de Dios para guardar vuestra tradición" (Marcos 7:9).</p>
+            <p>La Palabra de Dios nos exhorta: "Salid de en medio de ellos, y apartaos, dice el Señor, y no toquéis lo inmundo; y yo os recibiré" (2 Corintios 6:17).</p>
+        </div>
+        
+        <button class="big-button" onclick="showWelcomeSection()">Volver al Inicio</button>
+    </div>
+
+    <script>
+        // Respuestas correctas para la Sección 1
+        const correctAnswers1 = {
+            q1: "b", q2: "b", q3: "c", q4: "a", q5: "b", q6: "c", 
+            q7: "a", q8: "a", q9: "a", q10: "b", q11: "a", q12: "b", q13: "b"
+        };
+
+        // Respuestas correctas para la Sección 2
+        const correctAnswers2 = {
+            q14: "b", q15: "a", q16: "b", q17: "b", q18: "a", q19: "b", q20: "b",
+            q21: "a", q22: "a", q23: "a", q24: "c", q25: "b", q26: "b", q27: "a",
+            q28: "a", q29: "c", q30: "b", q31: "a", q32: "c", q33: "a"
+        };
+
+        function showNameSection() {
+            document.getElementById("welcomeSection").style.display = "none";
+            document.getElementById("nameSection").style.display = "block";
+        }
+
+        function startTest() {
+            const name = document.getElementById("userName").value.trim();
+            if (name === "") {
+                alert("Por favor, ingresa tu nombre para comenzar el test.");
+                return;
+            }
+
+            // Oculta la sección del nombre
+            document.getElementById("nameSection").style.display = "none";
+
+            // Muestra la primera sección del test
+            document.getElementById("section1").style.display = "block";
+        }
+
+        // Función para marcar respuestas correctas/incorrectas
+        function markAnswer(questionName, isCorrect) {
+            const questionDiv = document.getElementById(questionName);
+            const labels = questionDiv.querySelectorAll('.options label');
+            
+            // Remover clases anteriores
+            labels.forEach(label => {
+                label.classList.remove('correct-answer', 'incorrect-answer', 'user-correct', 'user-incorrect');
+            });
+            
+            // Encontrar la opción correcta
+            const correctValue = correctAnswers1[questionName] || correctAnswers2[questionName];
+            const correctOption = questionDiv.querySelector(`input[value="${correctValue}"]`);
+            if (correctOption && correctOption.parentElement) {
+                correctOption.parentElement.classList.add('correct-answer');
+            }
+            
+            // Marcar la respuesta del usuario
+            const userOption = questionDiv.querySelector('input:checked');
+            if (userOption && userOption.parentElement) {
+                if (isCorrect) {
+                    userOption.parentElement.classList.add('user-correct');
+                } else {
+                    userOption.parentElement.classList.add('user-incorrect');
+                }
+            }
+            
+            // Deshabilitar todas las opciones después de evaluar
+            questionDiv.querySelectorAll('input').forEach(input => {
+                input.disabled = true;
+            });
+        }
+
+        // Función para evaluar la Sección 1
+        function evaluateSection1() {
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers1).length;
+            const userName = document.getElementById("userName").value.trim();
+            
+            // Verificar si todas las preguntas han sido respondidas
+            let allAnswered = true;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = "q" + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (!selectedOption) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+            
+            if (!allAnswered) {
+                alert("Por favor, responde todas las preguntas antes de evaluar.");
+                return;
+            }
+            
+            // Calcular puntaje y marcar respuestas
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = "q" + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (selectedOption && selectedOption.value === correctAnswers1[questionName]) {
+                    score++;
+                    markAnswer(questionName, true);
+                } else {
+                    markAnswer(questionName, false);
+                }
+            }
+            
+            // Mostrar resultado
+            const resultDiv = document.getElementById("result1");
+            const percentage = (score / totalQuestions) * 100;
+            
+            resultDiv.innerHTML = `
+                <h3>Resultado para ${userName}</h3>
+                <p>Obtuviste ${score} de ${totalQuestions} respuestas correctas (${percentage.toFixed(1)}%)</p>
+            `;
+            
+            if (percentage >= 80) {
+                resultDiv.className = "result correct";
+                resultDiv.innerHTML += "<p>¡Excelente! Tienes un buen entendimiento de la salvación.</p>";
+            } else if (percentage >= 60) {
+                resultDiv.className = "result correct";
+                resultDiv.innerHTML += "<p>Buen trabajo, pero hay algunos conceptos que necesitas reforzar.</p>";
+            } else {
+                resultDiv.className = "result incorrect";
+                resultDiv.innerHTML += "<p>Necesitas estudiar más sobre la salvación. Revisa las respuestas correctas.</p>";
+            }
+            
+            // Mostrar botones adicionales
+            document.getElementById("viewAnswersBtn1").style.display = "block";
+            document.getElementById("nextButton1").style.display = "block";
+            
+            // Desplazarse al resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Función para evaluar la Sección 2
+        function evaluateSection2() {
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers2).length;
+            const userName = document.getElementById("userName").value.trim();
+            
+            // Verificar si todas las preguntas han sido respondidas
+            let allAnswered = true;
+            for (let i = 14; i <= 33; i++) {
+                const questionName = "q" + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (!selectedOption) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+            
+            if (!allAnswered) {
+                alert("Por favor, responde todas las preguntas antes de evaluar.");
+                return;
+            }
+            
+            // Calcular puntaje y marcar respuestas
+            for (let i = 14; i <= 33; i++) {
+                const questionName = "q" + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (selectedOption && selectedOption.value === correctAnswers2[questionName]) {
+                    score++;
+                    markAnswer(questionName, true);
+                } else {
+                    markAnswer(questionName, false);
+                }
+            }
+            
+            // Mostrar resultado
+            const resultDiv = document.getElementById("result2");
+            const percentage = (score / totalQuestions) * 100;
+            
+            resultDiv.innerHTML = `
+                <h3>Resultado para ${userName}</h3>
+                <p>Obtuviste ${score} de ${totalQuestions} respuestas correctas (${percentage.toFixed(1)}%)</p>
+            `;
+            
+            if (percentage >= 80) {
+                resultDiv.className = "result correct";
+                resultDiv.innerHTML += "<p>¡Excelente! Tienes un buen entendimiento de la escatología.</p>";
+            } else if (percentage >= 60) {
+                resultDiv.className = "result correct";
+                resultDiv.innerHTML += "<p>Buen trabajo, pero hay algunos conceptos que necesitas reforzar.</p>";
+            } else {
+                resultDiv.className = "result incorrect";
+                resultDiv.innerHTML += "<p>Necesitas estudiar más sobre escatología. Revisa las respuestas correctas.</p>";
+            }
+            
+            // Mostrar botones adicionales
+            document.getElementById("viewAnswersBtn2").style.display = "block";
+            document.getElementById("finalMessage").style.display = "block";
+            
+            // Desplazarse al resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Función para mostrar respuestas completas de la Sección 1
+        function showCompleteAnswers1() {
+            const answersContainer = document.getElementById("completeAnswers1");
+            if (answersContainer.style.display === "block") {
+                answersContainer.style.display = "none";
+            } else {
+                answersContainer.style.display = "block";
+                answersContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Función para mostrar respuestas completas de la Sección 2
+        function showCompleteAnswers2() {
+            const answersContainer = document.getElementById("completeAnswers2");
+            if (answersContainer.style.display === "block") {
+                answersContainer.style.display = "none";
+            } else {
+                answersContainer.style.display = "block";
+                answersContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Función para mostrar la Sección 2
+        function showSection2() {
+            document.getElementById("section1").style.display = "none";
+            document.getElementById("section2").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        // Función para mostrar la sección de recursos
+        function showResourcesSection() {
+            document.getElementById("section2").style.display = "none";
+            document.getElementById("resourcesSection").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        // Función para mostrar la sección "En qué tiempos estamos"
+        function showTimesSection() {
+            document.getElementById("resourcesSection").style.display = "none";
+            document.getElementById("timesSection").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        // Función para mostrar la sección de creencias católicas
+        function showCatholicSection() {
+            document.getElementById("timesSection").style.display = "none";
+            document.getElementById("catholicSection").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        // Función para volver al inicio
+        function showWelcomeSection() {
+            document.getElementById("catholicSection").style.display = "none";
+            document.getElementById("welcomeSection").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        // Función para volver a recursos
+        function goBackToResources() {
+            document.getElementById("timesSection").style.display = "none";
+            document.getElementById("resourcesSection").style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        // Función para volver al mensaje final
+        function goBackToFinalMessage() {
+            document.getElementById("resourcesSection").style.display = "none";
+            document.getElementById("section2").style.display = "block";
+            document.getElementById("finalMessage").scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
