@@ -527,7 +527,7 @@
             <p class="bible-verse-intro">"Examinaos a vosotros mismos si estáis en la fe" (2 Corintios 13:5).</p>
         </div>
         
-        <button class="start-button" onclick="showNameSection()">INICIAR TEST</button>
+        <button class="start-button" onclick="trackEvent('iniciar_test'); showNameSection()">INICIAR TEST</button>
     </div>
 
     <div id="nameSection" class="section">
@@ -535,7 +535,7 @@
         <div id="nameForm">
             <label for="userName">Ingresa tu nombre:</label><br>
             <input type="text" id="userName" placeholder="Tu nombre"><br>
-            <button class="big-button" onclick="startTest()">Comenzar Test</button>
+            <button class="big-button" onclick="trackEvent('comenzar_test'); startTest()">Comenzar Test</button>
         </div>
     </div>
 
@@ -659,7 +659,7 @@
             </div>
         </div>
 
-        <button class="big-button" onclick="evaluateSection1()">Evaluar Sección 1</button>
+        <button class="big-button" onclick="trackEvent('evaluar_seccion_1'); evaluateSection1()">Evaluar Sección 1</button>
 
         <div id="result1" class="result"></div>
 
@@ -819,7 +819,8 @@
             
         </div>
 
-        <button class="big-button" onclick="showSection2()" id="nextButton1" style="display:none;">Continuar a Sección 2</button>
+        <button class="big-button" onclick="trackEvent('continuar_seccion_2'); showSection2()" id="nextButton1" style="display:none;">Continuar a Sección 2</button>
+    
     </div>
 
     <div id="section2" class="section">
@@ -1013,7 +1014,7 @@
             </div>
         </div>
 
-        <button class="big-button" onclick="evaluateSection2()">Evaluar Sección 2</button>
+        <button class="big-button" onclick="trackEvent('completar_test'); evaluateSection2()">Evaluar Sección 2</button>
 
         <div id="result2" class="result"></div>
 
